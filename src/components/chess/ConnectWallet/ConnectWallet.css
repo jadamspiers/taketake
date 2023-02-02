@@ -1,0 +1,7 @@
+:root {
+    --account-center-z-index: 100;
+    --onboard-modal-z-index: 100;
+    --onboard-account-select-modal-z-index: 100;
+    --onboard-login-modal-z-index: 100;
+    --notify-onboard-z-index: 100;
+}
