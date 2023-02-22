@@ -4,7 +4,24 @@ import { FriendContent } from './tab-content-friends';
 import { RandomContent } from './tab-content-random';
 
 
-export const Tabs = ({ ws, username, set_color, load_chat_function, load_chat_state, room, socket_msg, users_array, room_name, room_id, room_sender, sender_message, set_is_time_expired, state_wallet }: any) => {
+export const Tabs = ({ 
+    ws, 
+    username, 
+    set_color, 
+    load_chat_function, 
+    load_chat_state, 
+    room, 
+    socket_msg, 
+    users_array, 
+    room_name, 
+    room_id, 
+    room_sender, 
+    sender_message, 
+    set_is_time_expired, 
+    state_wallet, 
+    state_did_win,
+    state_turn
+}: any) => {
 
     useEffect(() => {
         console.log(JSON.stringify(users_array))
@@ -60,9 +77,17 @@ export const Tabs = ({ ws, username, set_color, load_chat_function, load_chat_st
                     className={toggleState === 1 ? "w-full h-full block" : "w-full h-full hidden"}
                 >
                     <h2>Content 1</h2>
-                    <div className="flex items-center justify-center h-52">
-                        <RandomContent username={username} set_color={set_color} set_is_time_expired={set_is_time_expired} state_wallet={state_wallet}/>
-                    </div>
+                    {/* <div className="flex items-center justify-center h-52">
+                        <RandomContent username={username} set_color={set_color} set_is_time_expired={set_is_time_expired} state_wallet={state_wallet} state_did_win={state_did_win}/>
+                    </div> */}
+                    <RandomContent 
+                        username={username} 
+                        set_color={set_color} 
+                        set_is_time_expired={set_is_time_expired} 
+                        state_wallet={state_wallet} 
+                        state_did_win={state_did_win} 
+                        state_turn={state_turn}
+                    />
                 </div>
                 <div
                     className={toggleState === 2 ? "w-full h-full block" : "w-full h-full hidden"}

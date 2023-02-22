@@ -33,6 +33,12 @@ const initWeb3Onboard: any = init({
      token: 'ETH',
      label: 'Goerli',
      rpcUrl: `https://goerli.infura.io/v3/${infuraKey}`
+   },
+   {
+     id: '0x539',
+     token: 'ETH',
+     label: 'Hardhat',
+     rpcUrl: `https://mainnet.infura.io/v3/${infuraKey}`
    }
  ],
  appMetadata: {
@@ -121,12 +127,13 @@ export const ConnectWallet = ({ set_wallet, state_trigger_transaction, opponent_
         }
     }, [wallet])
 
-    useEffect(() => {
-      if (state_trigger_transaction === true) {
-        console.log("##SENDING WAGER NOW")
-        sendHash();
-      }
-    }, [state_trigger_transaction])
+    // FOR DIRECT P2P TRANSACTION
+    // useEffect(() => {
+    //   if (state_trigger_transaction === true) {
+    //     console.log("##SENDING WAGER NOW")
+    //     sendHash();
+    //   }
+    // }, [state_trigger_transaction])
 
     const readyToTransact = async () => {
         if (!wallet) {
@@ -134,9 +141,9 @@ export const ConnectWallet = ({ set_wallet, state_trigger_transaction, opponent_
             if (!walletSelected) return false
         }
 
-        if (connectedChain && connectedChain.id == '0xAA36A7') {
+        if (connectedChain && connectedChain.id == '0x539') {
             // prompt user to switch to Sepolia for test
-            await setChain({ chainId: '0xAA36A7' })
+            await setChain({ chainId: '0x539' })
         }
 
         return true

@@ -4,7 +4,7 @@ import Chess from 'chess.js';
 import { Chessboard } from 'react-chessboard';
 import { Dialog, Transition } from '@headlessui/react';
 
-export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state, state_is_time_expired, set_did_win }) => {
+export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state, set_did_win, set_turn }) => {
   const chessboardRef = useRef();
   const [game, setGame] = useState(new Chess());
   const [isOpen, setIsOpen] = useState(false);
@@ -19,22 +19,19 @@ export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state
       console.log("lastMove: " + JSON.stringify(last_move_state));
 
       onDrop(last_move_state.from, last_move_state.to);
+      set_turn(game.turn());
 
       console.log("ROOM.NAME: " + room.name);
     }
   }, [last_move_state])
 
   useEffect(() => {
-    if (state_is_time_expired) {
-      console.log("TIME HAS EXPIRED");
-    }
-  }, [state_is_time_expired]);
-
-  useEffect(() => {
     // if (color_state === "white" || color_state === "black") {
     //   console.log("color was assigned to " + color_state);
     // }
     console.log("color was assigned to " + color_state);
+    console.log("it's " + game.turn() + "'s turn");
+    set_turn(game.turn());
   }, [color_state]);
 
   function safeGameMutate(modify) {

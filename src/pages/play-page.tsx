@@ -21,13 +21,14 @@ export const PlayPage: React.FC = () => {
     const [socketMsg, setSocketMsg] = useState();
     const [loadChat, setLoadChat] = useState(false);
     const [lastMove, setLastMove] = useState<any>();
-    const [color, setColor] = useState('white');
     const [username, setUsername] = useState('');
     const [isTimeExpired, setIsTimeExpired] = useState(false);
     const [wallet, setWallet] = useState();
     const [didWin, setDidWin] = useState();
     const [opponentAddress, setOpponentAddress] = useState();
     const [triggerTransaction, setTriggerTransaction] = useState(false);
+    const [color, setColor] = useState('');
+    const [turn, setTurn] = useState();
     const ws = useRef<WebSocket | null>(null);
     let didConnect = false;
 
@@ -190,10 +191,35 @@ export const PlayPage: React.FC = () => {
                     </div>
                     <div>
                         {/* <Panel /> */}
-                        <Tabs ws={ws} username={username} set_color={setColor} load_chat_function={setLoadChat} load_chat_state={loadChat} room={room} socket_msg={socketMsg} users_array={users} room_name={roomName} room_id={roomId} room_sender={roomSender} sender_message={senderMessage} set_is_time_expired={setIsTimeExpired} state_wallet={wallet}/>
+                        <Tabs 
+                            ws={ws} 
+                            username={username} 
+                            set_color={setColor} 
+                            load_chat_function={setLoadChat} 
+                            load_chat_state={loadChat} 
+                            room={room} 
+                            socket_msg={socketMsg} 
+                            users_array={users} 
+                            room_name={roomName} 
+                            room_id={roomId} 
+                            room_sender={roomSender} 
+                            sender_message={senderMessage} 
+                            set_is_time_expired={setIsTimeExpired} 
+                            state_wallet={wallet} 
+                            state_did_win={didWin}
+                            state_turn={turn}
+                        />
                     </div>
                     <div>
-                        <StyledBoard boardWidth={700} color_state={color} ws={ws} room={room} last_move_state={lastMove} state_is_time_expired={isTimeExpired} set_did_win={setDidWin} />
+                        <StyledBoard 
+                            boardWidth={700} 
+                            color_state={color} 
+                            ws={ws} 
+                            room={room} 
+                            last_move_state={lastMove} 
+                            set_did_win={setDidWin}
+                            set_turn={setTurn}
+                        />
                     </div>
                 </div>
             </div>

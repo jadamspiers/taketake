@@ -32,6 +32,12 @@ const initWeb3Onboard: any = init({
         token: 'ETH',
         label: 'Goerli',
         rpcUrl: `https://goerli.infura.io/v3/${infuraKey}`
+      },
+      {
+        id: '0x539',
+        token: 'ETH',
+        label: 'Hardhat',
+        rpcUrl: `https://mainnet.infura.io/v3/${infuraKey}`
       }
     ],
     appMetadata: {
