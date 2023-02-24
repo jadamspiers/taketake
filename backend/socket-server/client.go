@@ -182,6 +182,12 @@ func (client *Client) handleNewMessage(jsonMessage []byte) {
 			room.broadcast <- &message
 		}
 
+	case SendTimeoutAction:
+		roomID := message.Target.GetId()
+		if room := client.wsServer.findRoomByID(roomID); room != nil {
+			room.broadcast <- &message
+		}
+
 	case JoinRoomAction:
 		client.handleJoinRoomMessage(message)
 

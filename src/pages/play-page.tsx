@@ -22,13 +22,14 @@ export const PlayPage: React.FC = () => {
     const [loadChat, setLoadChat] = useState(false);
     const [lastMove, setLastMove] = useState<any>();
     const [username, setUsername] = useState('');
-    const [isTimeExpired, setIsTimeExpired] = useState(false);
     const [wallet, setWallet] = useState();
     const [didWin, setDidWin] = useState();
     const [opponentAddress, setOpponentAddress] = useState();
     const [triggerTransaction, setTriggerTransaction] = useState(false);
     const [color, setColor] = useState('');
     const [turn, setTurn] = useState();
+    const [opponentTimeExpired, setOpponentTimeExpired] = useState(false);
+    const [myTimeExpired, setMyTimeExpired] = useState(false);
     const ws = useRef<WebSocket | null>(null);
     let didConnect = false;
 
@@ -120,21 +121,25 @@ export const PlayPage: React.FC = () => {
           switch (msg.action) {
             case "user-join":
               handleUserJoined(msg);
-              console.log("recieved 'user-joined' action");
+              console.log("received 'user-joined' action");
               break;
             case "send-message":
               handleChatMessage(msg);
-              console.log("recieved 'send-message' action");
+              console.log("received 'send-message' action");
               console.log("message: '" + msg.message + "' from " + msg.sender.name);
               break;
             case "send-move":
               handleMoveMessage(msg);
-              console.log("recieved 'send-move' action");
+              console.log("received 'send-move' action");
               console.log("move: " + msg.message + "' from " + msg.sender.name);
+              break;
+            case "send-timeout":
+              handleTimeoutMessage(msg);
+              console.log("received 'send-timeout' action from " + msg.sender.name);
               break;
             case "room-joined":
               handleRoomJoined(msg);
-              console.log("recieved 'room-joined' action");
+              console.log("received 'room-joined' action");
               setLoadChat(true);
               break;
             default:
@@ -180,6 +185,14 @@ export const PlayPage: React.FC = () => {
         setRoomName(newRoom.name);
         setRoomId(newRoom.id);
     }
+
+    const handleTimeoutMessage = (msg: any) => {
+        if (msg.sender.name !== user?.name) {
+            setOpponentTimeExpired(true);
+        } else if (msg.sender.name === user?.name) {
+            setMyTimeExpired(true);
+        }
+    }
     
 
     return (
@@ -204,10 +217,10 @@ export const PlayPage: React.FC = () => {
                             room_id={roomId} 
                             room_sender={roomSender} 
                             sender_message={senderMessage} 
-                            set_is_time_expired={setIsTimeExpired} 
                             state_wallet={wallet} 
                             state_did_win={didWin}
                             state_turn={turn}
+                            state_opponent_time_expired={opponentTimeExpired}
                         />
                     </div>
                     <div>
@@ -216,9 +229,11 @@ export const PlayPage: React.FC = () => {
                             color_state={color} 
                             ws={ws} 
                             room={room} 
-                            last_move_state={lastMove} 
+                            last_move_state={lastMove}
                             set_did_win={setDidWin}
                             set_turn={setTurn}
+                            state_opponent_time_expired={opponentTimeExpired}
+                            state_my_time_expired={myTimeExpired}
                         />
                     </div>
                 </div>

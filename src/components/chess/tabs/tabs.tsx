@@ -20,7 +20,8 @@ export const Tabs = ({
     set_is_time_expired, 
     state_wallet, 
     state_did_win,
-    state_turn
+    state_turn,
+    state_opponent_time_expired
 }: any) => {
 
     useEffect(() => {
@@ -81,12 +82,15 @@ export const Tabs = ({
                         <RandomContent username={username} set_color={set_color} set_is_time_expired={set_is_time_expired} state_wallet={state_wallet} state_did_win={state_did_win}/>
                     </div> */}
                     <RandomContent 
+                        ws={ws}
                         username={username} 
                         set_color={set_color} 
                         set_is_time_expired={set_is_time_expired} 
                         state_wallet={state_wallet} 
                         state_did_win={state_did_win} 
                         state_turn={state_turn}
+                        state_room={room}
+                        state_opponent_time_expired={state_opponent_time_expired}
                     />
                 </div>
                 <div

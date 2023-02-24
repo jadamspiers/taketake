@@ -8,6 +8,7 @@ import (
 // Chat Actions
 const SendMessageAction = "send-message"
 const SendMoveAction = "send-move"
+const SendTimeoutAction = "send-timeout"
 const JoinRoomAction = "join-room"
 const LeaveRoomAction = "leave-room"
 const UserJoinedAction = "user-join"

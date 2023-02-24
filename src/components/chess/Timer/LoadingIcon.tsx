@@ -90,9 +90,6 @@ export const LoadingIcon = ({time, state_turn, myColor, set_time_expired}: any) 
             }
 
         } else if (!isActive && seconds !== 0) {
-            if (set_time_expired !== undefined) {
-                set_time_expired(true);
-            }
             clearInterval(interval);
         }
         return () => clearInterval(interval);

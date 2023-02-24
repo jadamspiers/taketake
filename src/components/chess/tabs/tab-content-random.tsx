@@ -7,7 +7,7 @@ import Game from '../../../chain/artifacts/contracts/Game.sol/Game.json';
 import { ethers } from 'ethers';
 import { LoadingIcon } from '../Timer/LoadingIcon';
 
-export const RandomContent = ({ username, set_color, state_wallet, state_did_win, state_turn }: any) => {
+export const RandomContent = ({ ws, username, set_color, state_wallet, state_did_win, state_turn, state_room, state_opponent_time_expired }: any) => {
 
     const THREE_DAYS_IN_MS = 10 * 1000;
     const NOW_IN_MS = new Date().getTime();
@@ -32,9 +32,15 @@ export const RandomContent = ({ username, set_color, state_wallet, state_did_win
     useEffect(() => {
         if (timeExpired === true) {
             console.log("TIME HAS EXPIRED");
-            settleBet();
+            sendTimeout(state_room);
         }
     }, [timeExpired]);
+
+    useEffect(() => {
+        if (state_opponent_time_expired === true) {
+            settleBet();
+        }
+    })
 
     useEffect(() => {
         console.log("calling settleBet()")
@@ -61,7 +67,7 @@ export const RandomContent = ({ username, set_color, state_wallet, state_did_win
         const provider = new ethers.providers.Web3Provider(state_wallet.provider, 'any')
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractAddress, Game.abi, signer)
-        const data = await contract.proposeBet(610, {value: ethers.utils.parseEther('10')})
+        const data = await contract.proposeBet(630, {value: ethers.utils.parseEther('10')})
         console.log("proposeBet(): " + JSON.stringify(data))
     }
 
@@ -69,8 +75,21 @@ export const RandomContent = ({ username, set_color, state_wallet, state_did_win
         const provider = new ethers.providers.JsonRpcProvider()
         const signer = provider.getSigner()
         const contract = new ethers.Contract(contractAddress, Game.abi, signer)
-        const data = await contract.settleBet(610)
+        const data = await contract.settleBet(630)
         console.log("settleBet(): " + JSON.stringify(data))
+    }
+
+    function sendTimeout(room: any) {
+        console.log("sending timeout message to room " + room.id);
+        console.log("I AM " + username);
+        ws.current?.send(JSON.stringify({ 
+            action: 'send-timeout', 
+            message: room.id,
+            target: {
+                id: room.id,
+                name: room.name
+            }
+        }));
     }
 
     const joinLobby = () => {
@@ -123,6 +142,11 @@ export const RandomContent = ({ username, set_color, state_wallet, state_did_win
                 >
                     Settle
                 </button>
+                <button
+                    onClick={() => sendTimeout(state_room)}
+                >
+                    Timeout
+                </button>
                 {/* {myColor !== undefined
                     ? <LoadingIcon time={180} state_turn={state_turn} myColor={myColor} set_time_expired={setTimeExpired}/>
                     : <LoadingIcon time={30}/>
@@ -133,6 +157,12 @@ export const RandomContent = ({ username, set_color, state_wallet, state_did_win
                     className="flex items-center justify-center rounded-full bg-green-500 text-white w-32 h-14 text-xl"
                 >
                     Play
+                </button>
+                <button>
+                    Draw
+                </button>
+                <button>
+                    Resign
                 </button>
             </div>
         </>

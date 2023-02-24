@@ -4,7 +4,7 @@ import Chess from 'chess.js';
 import { Chessboard } from 'react-chessboard';
 import { Dialog, Transition } from '@headlessui/react';
 
-export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state, set_did_win, set_turn }) => {
+export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state, set_did_win, set_turn, state_opponent_time_expired, state_my_time_expired }) => {
   const chessboardRef = useRef();
   const [game, setGame] = useState(new Chess());
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +24,15 @@ export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state
       console.log("ROOM.NAME: " + room.name);
     }
   }, [last_move_state])
+
+  useEffect(() => {
+    if (state_opponent_time_expired === true) {
+      setIsOpen(true);
+    }
+    if (state_my_time_expired === true) {
+      setIsOpen(true);
+    }
+  }, [state_opponent_time_expired, state_my_time_expired])
 
   useEffect(() => {
     // if (color_state === "white" || color_state === "black") {
@@ -59,15 +68,23 @@ export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state
   const showDialog = () => {
     let dialogMessage = ""
     if (blackWon) {
-      dialogMessage = "Black has won by checkmate"
+      dialogMessage = "Black has won by checkmate";
     } else if (!blackWon && !isStalemate && !isDraw) {
-      dialogMessage = "White has won by checkmate"
+      dialogMessage = "White has won by checkmate";
     } else if (!blackWon && isStalemate && !isDraw) {
-      dialogMessage = "The game has ended in a stalemate"
+      dialogMessage = "The game has ended in a stalemate";
     } else if (!blackWon && !isStalemate && isDraw) {
-      dialogMessage = "The game has ended in a draw"
+      dialogMessage = "The game has ended in a draw";
     } else {
       console.log("Error: Not sure how the game has ended.")
+    }
+
+    if (state_opponent_time_expired === true) {
+      dialogMessage = "Opponent's time has expired"
+    }
+
+    if (state_my_time_expired === true) {
+      dialogMessage = "My time has expired"
     }
 
     return (
