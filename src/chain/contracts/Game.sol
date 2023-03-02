@@ -6,7 +6,7 @@ contract Game {
      * DATA STRUCTURES
      */
 
-    struct Game {
+    struct GameStruct {
         address player1;
         address player2;
         uint player1Wager;
@@ -16,7 +16,7 @@ contract Game {
     }
 
     // Games, keyed by gameId value
-    mapping(uint => Game) public games;
+    mapping(uint => GameStruct) public games;
 
     /*
      * EVENTS
@@ -79,10 +79,11 @@ contract Game {
         // pay out the winner
         // delete the game
         (bool success, ) = msg.sender.call{value: totalWager}("");
+        if (success) {
+            emit BetSettled(_gameId);
+        }
     
         delete games[_gameId];
-
-        emit BetSettled(_gameId);
     }
 
     receive() external payable {}
