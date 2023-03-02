@@ -4,7 +4,20 @@ import Chess from 'chess.js';
 import { Chessboard } from 'react-chessboard';
 import { Dialog, Transition } from '@headlessui/react';
 
-export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state, set_did_win, set_turn, state_opponent_time_expired, state_my_time_expired }) => {
+export const StyledBoard = ({ 
+  boardWidth, 
+  color_state, 
+  ws, 
+  room, 
+  last_move_state, 
+  set_did_win, 
+  set_turn, 
+  state_opponent_time_expired, 
+  state_my_time_expired,
+  state_is_mutual_draw,
+  state_opponent_resigned,
+  state_self_resigned
+}) => {
   const chessboardRef = useRef();
   const [game, setGame] = useState(new Chess());
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +46,18 @@ export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state
       setIsOpen(true);
     }
   }, [state_opponent_time_expired, state_my_time_expired])
+
+  useEffect(() => {
+    if (state_is_mutual_draw === true) {
+      setIsOpen(true);
+    }
+  }, [state_is_mutual_draw]);
+
+  useEffect(() => {
+    if (state_self_resigned === true || state_opponent_resigned === true) {
+      setIsOpen(true);
+    }
+  }, [state_self_resigned, state_opponent_resigned]);
 
   useEffect(() => {
     // if (color_state === "white" || color_state === "black") {
@@ -85,6 +110,18 @@ export const StyledBoard = ({ boardWidth, color_state, ws, room, last_move_state
 
     if (state_my_time_expired === true) {
       dialogMessage = "My time has expired"
+    }
+
+    if (state_is_mutual_draw === true) {
+      dialogMessage = "Draw by agreement."
+    }
+
+    if (state_self_resigned === true) {
+      dialogMessage = "You resigned."
+    }
+
+    if (state_opponent_resigned === true) {
+      dialogMessage = "Opponent resigned."
     }
 
     return (

@@ -30,6 +30,10 @@ export const PlayPage: React.FC = () => {
     const [turn, setTurn] = useState();
     const [opponentTimeExpired, setOpponentTimeExpired] = useState(false);
     const [myTimeExpired, setMyTimeExpired] = useState(false);
+    const [triggerDrawPrompt, setTriggerDrawPrompt] = useState(false);
+    const [isMutualDraw, setIsMutualDraw] = useState(false);
+    const [opponentResigned, setOpponentResigned] = useState(false);
+    const [selfResigned, setSelfResigned] = useState(false);
     const ws = useRef<WebSocket | null>(null);
     let didConnect = false;
 
@@ -137,6 +141,18 @@ export const PlayPage: React.FC = () => {
               handleTimeoutMessage(msg);
               console.log("received 'send-timeout' action from " + msg.sender.name);
               break;
+            case "send-draw":
+              handleDrawAction(msg);
+              console.log("received 'send-draw' action from " + msg.sender.name);
+              break;
+            case "send-drawaccepted":
+              handleDrawAcceptedAction(msg);
+              console.log("received 'send-drawaccepted' action from " + msg.sender);
+              break;
+            case "send-resign":
+              handleResignAction(msg);
+              console.log("received 'send-resign' action from " + msg.sender);
+              break;
             case "room-joined":
               handleRoomJoined(msg);
               console.log("received 'room-joined' action");
@@ -193,6 +209,26 @@ export const PlayPage: React.FC = () => {
             setMyTimeExpired(true);
         }
     }
+
+    const handleDrawAction = (msg: any) => {
+        if (msg.sender.name !== user?.name) {
+            setTriggerDrawPrompt(true);
+        }
+    }
+
+    const handleDrawAcceptedAction = (msg: any) => {
+        if (msg.sender.name !== user?.name) {
+            setIsMutualDraw(true);
+        }
+    }
+
+    const handleResignAction = (msg: any) => {
+        if (msg.sender.name !== user?.name) {
+            setOpponentResigned(true);
+        } else if (msg.sender.name === user?.name) {
+            setSelfResigned(true);
+        }
+    }
     
 
     return (
@@ -221,6 +257,10 @@ export const PlayPage: React.FC = () => {
                             state_did_win={didWin}
                             state_turn={turn}
                             state_opponent_time_expired={opponentTimeExpired}
+                            state_trigger_draw_prompt={triggerDrawPrompt}
+                            set_trigger_draw_prompt={setTriggerDrawPrompt}
+                            set_is_mutual_draw={setIsMutualDraw}
+                            state_opponent_resigned={opponentResigned}
                         />
                     </div>
                     <div>
@@ -234,6 +274,9 @@ export const PlayPage: React.FC = () => {
                             set_turn={setTurn}
                             state_opponent_time_expired={opponentTimeExpired}
                             state_my_time_expired={myTimeExpired}
+                            state_is_mutual_draw={isMutualDraw}
+                            state_opponent_resigned={opponentResigned}
+                            state_self_resigned={selfResigned}
                         />
                     </div>
                 </div>

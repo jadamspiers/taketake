@@ -21,7 +21,11 @@ export const Tabs = ({
     state_wallet, 
     state_did_win,
     state_turn,
-    state_opponent_time_expired
+    state_opponent_time_expired,
+    state_trigger_draw_prompt,
+    set_trigger_draw_prompt,
+    set_is_mutual_draw,
+    state_opponent_resigned
 }: any) => {
 
     useEffect(() => {
@@ -91,6 +95,10 @@ export const Tabs = ({
                         state_turn={state_turn}
                         state_room={room}
                         state_opponent_time_expired={state_opponent_time_expired}
+                        state_trigger_draw_prompt={state_trigger_draw_prompt}
+                        set_trigger_draw_prompt={set_trigger_draw_prompt}
+                        set_is_mutual_draw={set_is_mutual_draw}
+                        state_opponent_resigned={state_opponent_resigned}
                     />
                 </div>
                 <div

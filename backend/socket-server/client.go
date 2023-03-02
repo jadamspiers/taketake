@@ -188,6 +188,24 @@ func (client *Client) handleNewMessage(jsonMessage []byte) {
 			room.broadcast <- &message
 		}
 
+	case SendDrawAction:
+		roomID := message.Target.GetId()
+		if room := client.wsServer.findRoomByID(roomID); room != nil {
+			room.broadcast <- &message
+		}
+
+	case SendResignAction:
+		roomID := message.Target.GetId()
+		if room := client.wsServer.findRoomByID(roomID); room != nil {
+			room.broadcast <- &message
+		}
+
+	case SendDrawAcceptedAction:
+		roomID := message.Target.GetId()
+		if room := client.wsServer.findRoomByID(roomID); room != nil {
+			room.broadcast <- &message
+		}
+
 	case JoinRoomAction:
 		client.handleJoinRoomMessage(message)
 
