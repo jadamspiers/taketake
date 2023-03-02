@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-taketake-dev-153751-authRole",
+      "UnauthRoleArn": "arn:aws:iam::107762387091:role/amplify-taketake-dev-153751-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::107762387091:role/amplify-taketake-dev-153751-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-taketake-dev-153751-deployment",
+      "UnauthRoleName": "amplify-taketake-dev-153751-unauthRole",
+      "StackName": "amplify-taketake-dev-153751",
+      "StackId": "arn:aws:cloudformation:us-east-2:107762387091:stack/amplify-taketake-dev-153751/decf27f0-b94a-11ed-88ff-0a5b55510948",
+      "AmplifyAppId": "d1edj6bg7hiupa"
+    },
+    "categories": {
+      "auth": {
+        "taketake0a4876c0": {}
+      },
+      "api": {
+        "taketake": {}
+      }
+    }
+  }
+}

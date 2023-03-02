@@ -14,6 +14,9 @@ import './index.css';
 import { LandingPage } from "./pages/landing-page";
 import { TestingPage } from "./pages/testing-page";
 import { PlayPage } from "./pages/play-page";
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 export const App: React.FC = () => {
   const { isLoading } = useAuth0();
@@ -26,26 +29,29 @@ export const App: React.FC = () => {
     );
   }
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/testing" element={<TestingPage />} />
-      <Route path="/play" element={<PlayPage />} />
-      <Route
-        path="/profile"
-        element={<AuthenticationGuard component={ProfilePage} />}
-      />
-      <Route path="/public" element={<PublicPage />} />
-      <Route
-        path="/protected"
-        element={<AuthenticationGuard component={ProtectedPage} />}
-      />
-      <Route
-        path="/admin"
-        element={<AuthenticationGuard component={AdminPage} />}
-      />
-      <Route path="/callback" element={<CallbackPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <>
+      <div>TakeTake</div>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/testing" element={<TestingPage />} />
+        <Route path="/play" element={<PlayPage />} />
+        <Route
+          path="/profile"
+          element={<AuthenticationGuard component={ProfilePage} />}
+        />
+        <Route path="/public" element={<PublicPage />} />
+        <Route
+          path="/protected"
+          element={<AuthenticationGuard component={ProtectedPage} />}
+        />
+        <Route
+          path="/admin"
+          element={<AuthenticationGuard component={AdminPage} />}
+        />
+        <Route path="/callback" element={<CallbackPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
   );
 };
