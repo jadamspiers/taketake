@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useToast, Wrap } from '@chakra-ui/react';
 import { WagerInput } from '../wager-input';
 import { contractAddress, ownerAddress } from '../../../chain/config';
-import Game from '../../../chain/artifacts/contracts/Game.sol/Game.json';
+import Game from './Game.json';
 import { ethers } from 'ethers';
 import { LoadingIcon } from '../Timer/LoadingIcon';
 import { DrawPrompt } from './DrawPropmpt';
@@ -97,7 +97,7 @@ export const RandomContent = ({
         const provider = new ethers.providers.Web3Provider(state_wallet.provider, 'any')
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractAddress, Game.abi, signer);
-        const data = await contract.proposeBet(170, {value: ethers.utils.parseEther('10')});
+        const data = await contract.proposeBet(180, {value: ethers.utils.parseEther('10')});
         console.log("proposeBet(): " + JSON.stringify(data));
     }
 
@@ -105,7 +105,7 @@ export const RandomContent = ({
         const provider = new ethers.providers.JsonRpcProvider();
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractAddress, Game.abi, signer);
-        const data = await contract.settleBet(170);
+        const data = await contract.settleBet(180);
         console.log("settleBet(): " + JSON.stringify(data));
     }
 
