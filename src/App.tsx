@@ -16,6 +16,7 @@ import { TestingPage } from "./pages/testing-page";
 import { PlayPage } from "./pages/play-page";
 import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
+import { SignUpPage } from "./pages/signup-page";
 Amplify.configure(awsconfig);
 
 export const App: React.FC = () => {
@@ -36,6 +37,7 @@ export const App: React.FC = () => {
         <Route path="/home" element={<HomePage />} />
         <Route path="/testing" element={<TestingPage />} />
         <Route path="/play" element={<PlayPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route
           path="/profile"
           element={<AuthenticationGuard component={ProfilePage} />}
