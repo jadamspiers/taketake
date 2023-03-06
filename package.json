@@ -2,7 +2,7 @@
   "name": "taketake",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://taketake.gg",
   "dependencies": {
     "@auth0/auth0-react": "^1.12.1",
     "@chakra-ui/react": "^2.4.9",
