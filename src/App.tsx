@@ -16,18 +16,34 @@ import { PlayPage } from "./pages/play-page";
 import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { SignUpPage } from "./pages/signup-page";
+import { useAuth } from "./hooks/useAuth";
+import { SuccessPage } from "./pages/success-page";
+import { SignIn } from "./pages/signin-page";
 Amplify.configure(awsconfig);
 
 export const App: React.FC = () => {
+  const auth = useAuth();
+
+  if (auth.isLoading) {
+    return <div>Loading</div>
+  }
+
   return (
     <>
       <div>TakeTake</div>
+      <div>
+        {auth.isAuthenticated
+          ? "STATUS: Logged in"
+          : "STATUS: Not logged in"}
+      </div>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/testing" element={<TestingPage />} />
         <Route path="/play" element={<PlayPage />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/success" element={<SuccessPage />} />
         <Route
           path="/profile"
           element={<AuthenticationGuard component={ProfilePage} />}

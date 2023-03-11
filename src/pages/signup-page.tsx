@@ -1,28 +1,37 @@
 
 import { useState } from 'react';
-import { Auth } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
+import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export const SignUpPage = () => {
+    const auth = useAuth();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [code, setCode] = useState("");
 
-    const SignUp = async () => {
-        try {
-            const { user } = await Auth.signUp({
-                username,
-                password,
-                // attributes: {
-                //     email,          // optional
-                //     // other custom attributes 
-                // },
-                autoSignIn: { // optional - enables auto sign in after user is confirmed
-                    enabled: true,
-                }
-            });
-            console.log(user);
-        } catch (error) {
-            console.log('error signing up:', error);
+    const executeSignUp = async (event: any) => {
+        event.preventDefault();
+        console.log("calling auth.signup()")
+        console.log("with username: " + username);
+        console.log("with password: " + password);
+        const result = await auth.signUp(username, password);
+        if (result.success) {
+            console.log("successful sign up")
+        } else {
+            console.log("result: " + JSON.stringify(result));
+        }
+    }
+
+    const executeConfirmSignUp = async (event: any) => {
+        event.preventDefault();
+        const result = await auth.confirmSignUp(username, code);
+        if (result.success) {
+            console.log("successful confirming sign up")
+            navigate({ pathname: "/success" });
+        } else {
+            console.log("failed confirming sign up")
         }
     }
 
@@ -33,8 +42,13 @@ export const SignUpPage = () => {
                 <input onChange={(e) => setUsername(e.target.value)}/>
                 <div>Password:</div>
                 <input onChange={(e) => setPassword(e.target.value)}/>
-                <button onClick={SignUp}>
+                <button onClick={executeSignUp}>
                     Sign Up
+                </button>
+                <div>Code:</div>
+                <input onChange={(e) => setCode(e.target.value)}/>
+                <button onClick={executeConfirmSignUp}>
+                    Confirm Code
                 </button>
             </div>
         </>

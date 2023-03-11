@@ -5,6 +5,7 @@
   "homepage": "https://taketake.gg",
   "dependencies": {
     "@auth0/auth0-react": "^1.12.1",
+    "@aws-amplify/ui-react": "^4.3.9",
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -19,7 +20,7 @@
     "@web3-onboard/core": "^2.14.0",
     "@web3-onboard/injected-wallets": "^2.6.1",
     "@web3-onboard/react": "^2.5.4",
-    "aws-amplify": "^5.0.16",
+    "aws-amplify": "^5.0.17",
     "axios": "^1.2.5",
     "chess.js": "^0.12.0",
     "classnames": "^2.3.2",
