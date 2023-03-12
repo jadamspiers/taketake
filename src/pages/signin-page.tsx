@@ -2,6 +2,7 @@ import { exec } from "child_process";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import SignInForm from "./page_components/signin-form";
 
 export function SignIn() {
     const auth = useAuth();
@@ -21,7 +22,8 @@ export function SignIn() {
 
     return (
         <>
-            <div>Email: </div>
+            <SignInForm setEmail={setEmail} setPassword={setPassword} executeSignIn={executeSignIn}/>
+            {/* <div>Email: </div>
             <input
                 placeholder="email" 
                 value={email}
@@ -35,7 +37,7 @@ export function SignIn() {
             />
             <button onClick={executeSignIn}>
                 Login
-            </button>
+            </button> */}
         </>
     );
 }

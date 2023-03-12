@@ -3,20 +3,18 @@ import { useState } from 'react';
 import { Amplify, Auth } from 'aws-amplify';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import SignUpForm from './page_components/signup-form';
 
 export const SignUpPage = () => {
     const auth = useAuth();
     const navigate = useNavigate();
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [code, setCode] = useState("");
 
     const executeSignUp = async (event: any) => {
         event.preventDefault();
-        console.log("calling auth.signup()")
-        console.log("with username: " + username);
-        console.log("with password: " + password);
-        const result = await auth.signUp(username, password);
+        const result = await auth.signUp(email, password);
         if (result.success) {
             console.log("successful sign up")
         } else {
@@ -26,7 +24,7 @@ export const SignUpPage = () => {
 
     const executeConfirmSignUp = async (event: any) => {
         event.preventDefault();
-        const result = await auth.confirmSignUp(username, code);
+        const result = await auth.confirmSignUp(email, code);
         if (result.success) {
             console.log("successful confirming sign up")
             navigate({ pathname: "/success" });
@@ -37,7 +35,14 @@ export const SignUpPage = () => {
 
     return (
         <>
-            <div className="flex flex-col">
+            <SignUpForm 
+                setEmail={setEmail} 
+                setPassword={setPassword} 
+                executeSignUp={executeSignUp}
+                executeConfirmSignUp={executeConfirmSignUp}
+                setCode={setCode}
+            />
+            {/* <div className="flex flex-col">
                 <div>Username:</div>
                 <input onChange={(e) => setUsername(e.target.value)}/>
                 <div>Password:</div>
@@ -50,7 +55,7 @@ export const SignUpPage = () => {
                 <button onClick={executeConfirmSignUp}>
                     Confirm Code
                 </button>
-            </div>
+            </div> */}
         </>
     )
 
