@@ -1,0 +1,4 @@
+requests
+aws_encryption_sdk
+cryptography
+sendgrid
