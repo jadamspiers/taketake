@@ -37,6 +37,8 @@ interface UseAuth {
     confirmSignUp: (username: string, code: string) => Promise<Result>;
     signIn: (username: string, password: string) => Promise<Result>;
     signOut: () => void;
+    forgotPassword: (username: string) => Promise<Result>;
+    forgotPasswordSubmit: (username: string, code: string, new_password: string) => Promise<Result>;
 }
 
 interface Result {
@@ -126,6 +128,48 @@ const useProvideAuth = (): UseAuth => {
         }
     }
 
+    const forgotPassword = async (username: string) => {
+        Auth.forgotPassword(username)
+            .then((data) => {
+                console.log(data)
+            })
+            .then((err) => {
+                console.log(err)
+                return {
+                    success: false,
+                    message: "FORGOT PASSWORD ATTEMPT FAILED"
+                }
+            })
+        
+        return {
+            success: true,
+            message: ""
+        }
+    }
+
+    const forgotPasswordSubmit = async (username: string, code: string, new_password: string) => {
+        Auth.forgotPasswordSubmit(username, code, new_password)
+            .then((data) => {
+                console.log(data)
+                return { 
+                    success: true,
+                    message: ""
+                }
+            })
+            .then((err) => {
+                console.log(err)
+                return {
+                    success: false,
+                    message: "FORGOT PASSWORD SUBMISSION FAILED"
+                }
+            })
+
+        return {
+            success: true,
+            message: ""
+        }
+    }
+
     const signOut = async () => {
         try {
             await Auth.signOut();
@@ -148,5 +192,7 @@ const useProvideAuth = (): UseAuth => {
         confirmSignUp,
         signIn,
         signOut,
+        forgotPassword,
+        forgotPasswordSubmit,
     };
 };

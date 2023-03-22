@@ -6,6 +6,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^1.12.1",
     "@aws-amplify/ui-react": "^4.3.9",
+    "@aws-sdk/client-gamelift": "^3.295.0",
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

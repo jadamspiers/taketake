@@ -39,6 +39,15 @@ def lambda_handler(event, context):
     
     email = event['request']['userAttributes']['email']
     code = cycled_plaintext[0].decode()
+
+    # triggerSources
+    # 1. CustomEmailSender_SignUp
+    # 2. CustomEmailSender_ResendCode
+    # 3. CustomEmailSender_ForgotPassword
+    # 4. CustomEmailSender_UpdateUserAttribute
+    # 5. CustomEmailSender_VerifyUserAttribute
+    # 6. CustomEmailSender_AdminCreateUser
+    # 7. CustomEmailSender_AccountTakeOverNotification
     
     if event['triggerSource'] == 'CustomEmailSender_SignUp':
         # send the confirmation code to the email
@@ -57,5 +66,23 @@ def lambda_handler(event, context):
             print(response.headers)
         except Exception as e:
             print(e.message)
+    elif event['triggerSource'] == 'CustomEmailSender_ForgotPassword':
+        # send the validation code to the email
+        message = Mail(
+            from_email='taketakellc@gmail.com',
+            to_emails=email,
+            subject='how the FUCK did you forget your password???',
+            html_content=f"Your validation code is <strong>{code}</strong>"
+        )
+
+        try:
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
+
     
     return event
