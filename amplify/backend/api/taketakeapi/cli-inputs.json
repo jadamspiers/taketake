@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "paths": {
+    "/hello": {
+      "name": "/hello",
+      "lambdaFunction": "helloHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/createplayersession": {
+      "name": "/createplayersession",
+      "lambdaFunction": "createPlayerSessionHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/searchgamesessions": {
+      "name": "/searchgamesessions",
+      "lambdaFunction": "searchGameSessionsHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/startmatchmaking": {
+      "name": "/startmatchmaking",
+      "lambdaFunction": "startMatchMakingHandler",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

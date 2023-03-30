@@ -6,16 +6,16 @@ Amplify.configure({
     Auth: {
 
         // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-        identityPoolId: 'us-east-2:063abff3-122b-45e9-8fff-7c5682a7ba6f',
+        identityPoolId: 'arn:aws:cognito-idp:us-east-2:107762387091:userpool/us-east-2_b9RJN7YgC',
         
         // REQUIRED - Amazon Cognito Region
         region: 'us-east-2',
 
         // OPTIONAL - Amazon Cognito User Pool ID
-        userPoolId: 'us-east-2_dBfL62MfS',
+        userPoolId: 'us-east-2_b9RJN7YgC',
 
         // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-        userPoolWebClientId: '3hdo0ok95gtfrh6gp5hj0j6s4c',
+        userPoolWebClientId: '2pqf9q8f0ro4neh7km04llfg6r',
 
 
          // OPTIONAL - Hosted UI configuration
@@ -33,6 +33,7 @@ interface UseAuth {
     isLoading: boolean;
     isAuthenticated: boolean;
     username: string;
+    token: string;
     signUp: (username: string, password: string) => Promise<Result>;
     confirmSignUp: (username: string, code: string) => Promise<Result>;
     signIn: (username: string, password: string) => Promise<Result>;
@@ -65,6 +66,7 @@ const useProvideAuth = (): UseAuth => {
     const [isLoading, setIsLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState("");
+    const [token, setToken] = useState("");
 
     useEffect(() => {
         Auth.currentAuthenticatedUser()
@@ -72,6 +74,8 @@ const useProvideAuth = (): UseAuth => {
                 setUsername(result.username);
                 setIsAuthenticated(true);
                 setIsLoading(false);
+                // setToken(result.signInUserSession.accessToken.jwtToken)
+                setToken(result.signInUserSession.idToken.jwtToken);
             })
             .catch(() => {
                 setUsername("");
@@ -83,15 +87,12 @@ const useProvideAuth = (): UseAuth => {
     const signIn = async (username: string, password: string) => {
         try {
             const result = await Auth.signIn(username, password);
-            setUsername(result.username);
-            console.log("result is: " + JSON.stringify(result));
-            console.log("username is : " + username);
-            setIsAuthenticated(true);
+            console.log("result: " + JSON.stringify(result));
             return { success: true, message: "" };
         } catch (error) {
             return {
                 success: false,
-                message: "LOGIN FAIL",
+                message: "LOGIN FAIL: " + error,
             };
         }
     };
@@ -175,6 +176,7 @@ const useProvideAuth = (): UseAuth => {
             await Auth.signOut();
             setUsername("");
             setIsAuthenticated(false);
+            setToken("");
             return { success: true, message: "" };
         } catch (error) {
             return {
@@ -188,6 +190,7 @@ const useProvideAuth = (): UseAuth => {
         isLoading,
         isAuthenticated,
         username,
+        token,
         signUp,
         confirmSignUp,
         signIn,

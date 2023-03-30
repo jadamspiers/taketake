@@ -14,7 +14,8 @@ export function SignIn() {
         event.preventDefault();
         const result = await auth.signIn(email, password);
         if (result.success) {
-            navigate({ pathname: "/play" });
+            console.log("successful sign in");
+            navigate({ pathname: "/start" });
         } else {
             alert(result.message);
         }

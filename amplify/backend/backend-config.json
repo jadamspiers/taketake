@@ -15,6 +15,44 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
+    },
+    "taketakeapi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "helloHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "createPlayerSessionHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "searchGameSessionsHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "startMatchMakingHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
     }
   },
   "auth": {
@@ -43,6 +81,94 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "createPlayerSessionHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "helloHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "searchGameSessionsHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "startMatchMakingHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_createPlayerSessionHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPlayerSessionHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_createPlayerSessionHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPlayerSessionHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_helloHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "helloHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_helloHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "helloHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_searchGameSessionsHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "searchGameSessionsHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_searchGameSessionsHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "searchGameSessionsHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_startMatchMakingHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "startMatchMakingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_startMatchMakingHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "startMatchMakingHandler"
+        }
+      ]
     }
   }
 }

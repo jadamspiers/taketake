@@ -20,6 +20,7 @@ import { useAuth } from "./hooks/useAuth";
 import { SuccessPage } from "./pages/success-page";
 import { SignIn } from "./pages/signin-page";
 import { ForgotPassword } from "./pages/forgotpassword-page";
+import { StartPage } from "./pages/start-page";
 Amplify.configure(awsconfig);
 
 export const App: React.FC = () => {
@@ -37,6 +38,9 @@ export const App: React.FC = () => {
           ? "STATUS: Logged in"
           : "STATUS: Not logged in"}
       </div>
+      <button onClick={auth.signOut}>
+        Sign Out
+      </button>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
@@ -46,6 +50,7 @@ export const App: React.FC = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/start" element={<StartPage />} />
         <Route
           path="/profile"
           element={<AuthenticationGuard component={ProfilePage} />}

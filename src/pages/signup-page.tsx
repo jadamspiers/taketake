@@ -27,7 +27,7 @@ export const SignUpPage = () => {
         const result = await auth.confirmSignUp(email, code);
         if (result.success) {
             console.log("successful confirming sign up")
-            navigate({ pathname: "/play" });
+            navigate({ pathname: "/start" });
         } else {
             console.log("failed confirming sign up")
         }
