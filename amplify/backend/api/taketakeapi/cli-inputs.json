@@ -61,6 +61,83 @@
           "delete"
         ]
       }
+    },
+    "/getactivequeue": {
+      "name": "/getactivequeue",
+      "lambdaFunction": "getActiveQueueHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/joingame": {
+      "name": "/joingame",
+      "lambdaFunction": "joinGameHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/describeplayersessions": {
+      "name": "/describeplayersessions",
+      "lambdaFunction": "describePlayerSessionsHandler",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/describematchmaking": {
+      "name": "/describematchmaking",
+      "lambdaFunction": "describeMatchMakingHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/receivemessages": {
+      "name": "/receivemessages",
+      "lambdaFunction": "receiveMessagesHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
     }
   }
 }

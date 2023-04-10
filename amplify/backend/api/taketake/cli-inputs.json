@@ -4,8 +4,16 @@
     "apiName": "taketake",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authtaketake0a4876c0"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 7,
+        "apiKeyExpirationDate": "2023-04-15T04:07:50.015Z",
+        "keyDescription": "local"
+      }
+    ]
   }
 }

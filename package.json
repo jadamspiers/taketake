@@ -8,6 +8,7 @@
     "@aws-amplify/ui-react": "^4.3.9",
     "@aws-sdk/client-cognito-identity": "^3.298.0",
     "@aws-sdk/client-gamelift": "^3.295.0",
+    "@aws-sdk/client-sqs": "^3.306.0",
     "@aws-sdk/credential-provider-cognito-identity": "^3.298.0",
     "@aws-sdk/types": "^3.296.0",
     "@chakra-ui/react": "^2.4.9",

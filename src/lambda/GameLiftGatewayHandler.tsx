@@ -115,6 +115,8 @@ export const handler = async (event: any, context: any) => {
                 }
             }
 
+        } else if (action == "") {
+
         }
     } else {
         console.log("ERROR: no body found");

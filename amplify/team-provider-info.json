@@ -17,8 +17,8 @@
         "taketake0a4876c0": {}
       },
       "api": {
-        "taketake": {},
-        "taketakeapi": {}
+        "taketakeapi": {},
+        "taketake": {}
       },
       "function": {
         "helloHandler": {
@@ -36,6 +36,30 @@
         "startMatchMakingHandler": {
           "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
           "s3Key": "amplify-builds/startMatchMakingHandler-7678484e5a684d6a6577-build.zip"
+        },
+        "getActiveQueueHandler": {
+          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "s3Key": "amplify-builds/getActiveQueueHandler-53564d4f47674d747770-build.zip"
+        },
+        "joinGameHandler": {
+          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "s3Key": "amplify-builds/joinGameHandler-574d514b734453737a51-build.zip"
+        },
+        "describePlayerSessionsHandler": {
+          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "s3Key": "amplify-builds/describePlayerSessionsHandler-316872577831666d6b66-build.zip"
+        },
+        "describeMatchMakingHandler": {
+          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "s3Key": "amplify-builds/describeMatchMakingHandler-6c427378797a3776304e-build.zip"
+        },
+        "receiveMessagesHandler": {
+          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "s3Key": "amplify-builds/receiveMessagesHandler-736a5531554b65476c45-build.zip"
+        },
+        "connectGameHandler": {
+          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "s3Key": "amplify-builds/connectGameHandler-54697a77354e42342b36-build.zip"
         }
       }
     }

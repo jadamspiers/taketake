@@ -1,5 +1,11 @@
 {
   "AppSyncApiName": "taketake",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authtaketake0a4876c0",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

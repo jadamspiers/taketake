@@ -1,15 +1,32 @@
 {
   "api": {
     "taketake": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "taketake0a4876c0"
+        }
+      ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2023-04-15T04:07:50.015Z",
+                "apiKeyExpirationDays": 7,
+                "description": "local"
+              },
+              "authenticationType": "API_KEY"
+            }
+          ],
           "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            },
-            "authenticationType": "API_KEY"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authtaketake0a4876c0"
+            }
           }
         }
       },
@@ -49,6 +66,46 @@
           ],
           "category": "function",
           "resourceName": "startMatchMakingHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getActiveQueueHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "joinGameHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "describePlayerSessionsHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "describeMatchMakingHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "receiveMessagesHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -84,12 +141,42 @@
     }
   },
   "function": {
+    "connectGameHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "createPlayerSessionHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "describeMatchMakingHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "describePlayerSessionsHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getActiveQueueHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "helloHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "joinGameHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "receiveMessagesHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -106,6 +193,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_connectGameHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "connectGameHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_connectGameHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "connectGameHandler"
+        }
+      ]
+    },
     "AMPLIFY_function_createPlayerSessionHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -122,6 +225,54 @@
         }
       ]
     },
+    "AMPLIFY_function_describeMatchMakingHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "describeMatchMakingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_describeMatchMakingHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "describeMatchMakingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_describePlayerSessionsHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "describePlayerSessionsHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_describePlayerSessionsHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "describePlayerSessionsHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_getActiveQueueHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getActiveQueueHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_getActiveQueueHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getActiveQueueHandler"
+        }
+      ]
+    },
     "AMPLIFY_function_helloHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -135,6 +286,38 @@
         {
           "category": "function",
           "resourceName": "helloHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinGameHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinGameHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinGameHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinGameHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_receiveMessagesHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "receiveMessagesHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_receiveMessagesHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "receiveMessagesHandler"
         }
       ]
     },
