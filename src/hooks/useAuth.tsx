@@ -34,6 +34,7 @@ interface UseAuth {
     isAuthenticated: boolean;
     username: string;
     token: string;
+    userId: string;
     signUp: (username: string, password: string) => Promise<Result>;
     confirmSignUp: (username: string, code: string) => Promise<Result>;
     signIn: (username: string, password: string) => Promise<Result>;
@@ -67,6 +68,7 @@ const useProvideAuth = (): UseAuth => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState("");
     const [token, setToken] = useState("");
+    const [userId, setUserId] = useState("");
 
     useEffect(() => {
         Auth.currentAuthenticatedUser()
@@ -74,6 +76,7 @@ const useProvideAuth = (): UseAuth => {
                 setUsername(result.username);
                 setIsAuthenticated(true);
                 setIsLoading(false);
+                setUserId(result.attributes.sub);
                 // setToken(result.signInUserSession.accessToken.jwtToken)
                 setToken(result.signInUserSession.idToken.jwtToken);
             })
@@ -191,6 +194,7 @@ const useProvideAuth = (): UseAuth => {
         isAuthenticated,
         username,
         token,
+        userId,
         signUp,
         confirmSignUp,
         signIn,

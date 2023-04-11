@@ -1,66 +1,42 @@
 {
-  "dev": {
+  "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-taketake-dev-153751-authRole",
-      "UnauthRoleArn": "arn:aws:iam::107762387091:role/amplify-taketake-dev-153751-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::107762387091:role/amplify-taketake-dev-153751-authRole",
+      "AuthRoleName": "amplify-taketake-staging-181436-authRole",
+      "UnauthRoleArn": "arn:aws:iam::107762387091:role/amplify-taketake-staging-181436-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::107762387091:role/amplify-taketake-staging-181436-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-taketake-dev-153751-deployment",
-      "UnauthRoleName": "amplify-taketake-dev-153751-unauthRole",
-      "StackName": "amplify-taketake-dev-153751",
-      "StackId": "arn:aws:cloudformation:us-east-2:107762387091:stack/amplify-taketake-dev-153751/decf27f0-b94a-11ed-88ff-0a5b55510948",
-      "AmplifyAppId": "d1edj6bg7hiupa",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-taketake-dev-153751-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "DeploymentBucketName": "amplify-taketake-staging-181436-deployment",
+      "UnauthRoleName": "amplify-taketake-staging-181436-unauthRole",
+      "StackName": "amplify-taketake-staging-181436",
+      "StackId": "arn:aws:cloudformation:us-east-2:107762387091:stack/amplify-taketake-staging-181436/1758ba20-b926-11ed-aabf-06421790c65e",
+      "AmplifyAppId": "dpfw8u54q88eo",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-taketake-staging-181436-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "taketake0a4876c0": {}
       },
-      "api": {
-        "taketakeapi": {},
-        "taketake": {}
-      },
       "function": {
-        "helloHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
-          "s3Key": "amplify-builds/helloHandler-2f4c79363748727a4d4f-build.zip"
-        },
         "createPlayerSessionHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
           "s3Key": "amplify-builds/createPlayerSessionHandler-33687430637a366d7962-build.zip"
         },
+        "helloHandler": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/helloHandler-2f4c79363748727a4d4f-build.zip"
+        },
         "searchGameSessionsHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
           "s3Key": "amplify-builds/searchGameSessionsHandler-69556866552f6b533976-build.zip"
         },
         "startMatchMakingHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
           "s3Key": "amplify-builds/startMatchMakingHandler-7678484e5a684d6a6577-build.zip"
-        },
-        "getActiveQueueHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
-          "s3Key": "amplify-builds/getActiveQueueHandler-53564d4f47674d747770-build.zip"
-        },
-        "joinGameHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
-          "s3Key": "amplify-builds/joinGameHandler-574d514b734453737a51-build.zip"
-        },
-        "describePlayerSessionsHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
-          "s3Key": "amplify-builds/describePlayerSessionsHandler-316872577831666d6b66-build.zip"
-        },
-        "describeMatchMakingHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
-          "s3Key": "amplify-builds/describeMatchMakingHandler-6c427378797a3776304e-build.zip"
-        },
-        "receiveMessagesHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
-          "s3Key": "amplify-builds/receiveMessagesHandler-736a5531554b65476c45-build.zip"
-        },
-        "connectGameHandler": {
-          "deploymentBucketName": "amplify-taketake-dev-153751-deployment",
-          "s3Key": "amplify-builds/connectGameHandler-54697a77354e42342b36-build.zip"
         }
+      },
+      "api": {
+        "taketake": {},
+        "taketakeapi": {}
       }
     }
   }
