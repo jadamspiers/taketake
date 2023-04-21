@@ -26,6 +26,7 @@ export const StyledBoard = ({
   const [isStalemate, setIsStalemate] = useState();
   const [isDraw, setIsDraw] = useState();
 
+  // 1
   useEffect(() => {
     if (last_move_state !== undefined) {
       console.log("lastMove state was updated");
@@ -38,6 +39,7 @@ export const StyledBoard = ({
     }
   }, [last_move_state])
 
+  // 2
   useEffect(() => {
     if (state_opponent_time_expired === true) {
       setIsOpen(true);
@@ -47,18 +49,22 @@ export const StyledBoard = ({
     }
   }, [state_opponent_time_expired, state_my_time_expired])
 
+
+  // 3
   useEffect(() => {
     if (state_is_mutual_draw === true) {
       setIsOpen(true);
     }
   }, [state_is_mutual_draw]);
 
+  // 4
   useEffect(() => {
     if (state_self_resigned === true || state_opponent_resigned === true) {
       setIsOpen(true);
     }
   }, [state_self_resigned, state_opponent_resigned]);
 
+  // 5
   useEffect(() => {
     // if (color_state === "white" || color_state === "black") {
     //   console.log("color was assigned to " + color_state);

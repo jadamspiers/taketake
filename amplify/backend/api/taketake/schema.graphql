@@ -1,10 +1,61 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+type Lobby @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Users: [User] @hasMany(indexName: "byLobby", fields: ["id"])
+}
 
-type User @model @auth(rules: [{ allow: private, provider: userPools }]) {
+type Notification @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  is_gameover: Boolean
+  winner: String
+  is_checkmate: Boolean
+  is_draw: Boolean
+  is_resign: Boolean
+  gameroomID: ID! @index(name: "byGameRoom")
+  userID: ID! @index(name: "byUser")
+  loser: String
+  offerDraw: Boolean
+  sendResign: Boolean
+  is_stalemate: Boolean
+}
+
+type Move @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  source: String
+  target: String
+  piece: String
+  userID: ID! @index(name: "byUser")
+  gameroomID: ID! @index(name: "byGameRoom")
+  next_turn: String
+}
+
+type GameRoom @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  Messages: [Message] @hasMany(indexName: "byGameRoom", fields: ["id"])
+  Users: [User] @manyToMany(relationName: "GameRoomUser")
+  Moves: [Move] @hasMany(indexName: "byGameRoom", fields: ["id"])
+  Notifications: [Notification] @hasMany(indexName: "byGameRoom", fields: ["id"])
+  open: Boolean
+  rating: Int
+}
+
+type Message @model @auth(rules: [{allow: public}, {allow: private}]) {
+  id: ID!
+  text: String
+  gameroomID: ID! @index(name: "byGameRoom")
+  userID: ID! @index(name: "byUser")
+  move: AWSJSON
+}
+
+type User @model @auth(rules: [{allow: public}, {allow: private}]) {
   id: ID!
   name: String!
-  imageUri: String,
+  image: String
+  Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
+  GameRoom: [GameRoom] @manyToMany(relationName: "GameRoomUser")
   status: String
+  color: String
+  Moves: [Move] @hasMany(indexName: "byUser", fields: ["id"])
+  Notifications: [Notification] @hasMany(indexName: "byUser", fields: ["id"])
+  lobbyID: ID! @index(name: "byLobby")
 }
+ 

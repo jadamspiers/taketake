@@ -32,11 +32,15 @@
         "startMatchMakingHandler": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
           "s3Key": "amplify-builds/startMatchMakingHandler-7678484e5a684d6a6577-build.zip"
+        },
+        "matchmakerHandler": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/matchmakerHandler-65565335475442316574-build.zip"
         }
       },
       "api": {
         "taketake": {},
-        "taketakeapi": {}
+        "taketakerestapi": {}
       }
     }
   }

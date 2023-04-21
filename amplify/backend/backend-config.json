@@ -14,18 +14,19 @@
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
+              "authenticationType": "AWS_IAM"
+            },
+            {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
                 "userPoolId": "authtaketake0a4876c0"
               }
-            },
-            {
-              "authenticationType": "AWS_IAM"
             }
           ],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
             },
             "authenticationType": "API_KEY"
           }
@@ -34,7 +35,7 @@
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
     },
-    "taketakeapi": {
+    "taketakerestapi": {
       "dependsOn": [
         {
           "attributes": [
@@ -42,31 +43,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "helloHandler"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "createPlayerSessionHandler"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "searchGameSessionsHandler"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "startMatchMakingHandler"
+          "resourceName": "matchmakerHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -112,6 +89,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "matchmakerHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "searchGameSessionsHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -153,6 +135,22 @@
         {
           "category": "function",
           "resourceName": "helloHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_matchmakerHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "matchmakerHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_matchmakerHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "matchmakerHandler"
         }
       ]
     },

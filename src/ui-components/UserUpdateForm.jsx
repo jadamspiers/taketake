@@ -25,20 +25,23 @@ export default function UserUpdateForm(props) {
   } = props;
   const initialValues = {
     name: "",
-    imageUri: "",
+    image: "",
     status: "",
+    color: "",
   };
   const [name, setName] = React.useState(initialValues.name);
-  const [imageUri, setImageUri] = React.useState(initialValues.imageUri);
+  const [image, setImage] = React.useState(initialValues.image);
   const [status, setStatus] = React.useState(initialValues.status);
+  const [color, setColor] = React.useState(initialValues.color);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
       ? { ...initialValues, ...userRecord }
       : initialValues;
     setName(cleanValues.name);
-    setImageUri(cleanValues.imageUri);
+    setImage(cleanValues.image);
     setStatus(cleanValues.status);
+    setColor(cleanValues.color);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
@@ -54,8 +57,9 @@ export default function UserUpdateForm(props) {
   React.useEffect(resetStateValues, [userRecord]);
   const validations = {
     name: [{ type: "Required" }],
-    imageUri: [],
+    image: [],
     status: [],
+    color: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -84,8 +88,9 @@ export default function UserUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           name,
-          imageUri,
+          image,
           status,
+          color,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -142,8 +147,9 @@ export default function UserUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               name: value,
-              imageUri,
+              image,
               status,
+              color,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -159,30 +165,31 @@ export default function UserUpdateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Image uri"
+        label="Image"
         isRequired={false}
         isReadOnly={false}
-        value={imageUri}
+        value={image}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               name,
-              imageUri: value,
+              image: value,
               status,
+              color,
             };
             const result = onChange(modelFields);
-            value = result?.imageUri ?? value;
+            value = result?.image ?? value;
           }
-          if (errors.imageUri?.hasError) {
-            runValidationTasks("imageUri", value);
+          if (errors.image?.hasError) {
+            runValidationTasks("image", value);
           }
-          setImageUri(value);
+          setImage(value);
         }}
-        onBlur={() => runValidationTasks("imageUri", imageUri)}
-        errorMessage={errors.imageUri?.errorMessage}
-        hasError={errors.imageUri?.hasError}
-        {...getOverrideProps(overrides, "imageUri")}
+        onBlur={() => runValidationTasks("image", image)}
+        errorMessage={errors.image?.errorMessage}
+        hasError={errors.image?.hasError}
+        {...getOverrideProps(overrides, "image")}
       ></TextField>
       <TextField
         label="Status"
@@ -194,8 +201,9 @@ export default function UserUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               name,
-              imageUri,
+              image,
               status: value,
+              color,
             };
             const result = onChange(modelFields);
             value = result?.status ?? value;
@@ -209,6 +217,33 @@ export default function UserUpdateForm(props) {
         errorMessage={errors.status?.errorMessage}
         hasError={errors.status?.hasError}
         {...getOverrideProps(overrides, "status")}
+      ></TextField>
+      <TextField
+        label="Color"
+        isRequired={false}
+        isReadOnly={false}
+        value={color}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              image,
+              status,
+              color: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.color ?? value;
+          }
+          if (errors.color?.hasError) {
+            runValidationTasks("color", value);
+          }
+          setColor(value);
+        }}
+        onBlur={() => runValidationTasks("color", color)}
+        errorMessage={errors.color?.errorMessage}
+        hasError={errors.color?.hasError}
+        {...getOverrideProps(overrides, "color")}
       ></TextField>
       <Flex
         justifyContent="space-between"

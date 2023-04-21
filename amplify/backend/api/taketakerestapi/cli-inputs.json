@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "paths": {
+    "/matchmaker": {
+      "name": "/matchmaker",
+      "lambdaFunction": "matchmakerHandler",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    }
+  }
+}

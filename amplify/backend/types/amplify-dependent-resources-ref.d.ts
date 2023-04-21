@@ -5,7 +5,7 @@ export type AmplifyDependentResourcesAttributes = {
       "GraphQLAPIIdOutput": "string",
       "GraphQLAPIKeyOutput": "string"
     },
-    "taketakeapi": {
+    "taketakerestapi": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
@@ -31,6 +31,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string"
     },
     "helloHandler": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "matchmakerHandler": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

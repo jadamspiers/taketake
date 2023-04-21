@@ -5,5 +5,7 @@
  **************************************************************************/
 
 export { default as studioTheme } from "./studioTheme";
-export { default as UserCreateForm } from "./UserCreateForm";
-export { default as UserUpdateForm } from "./UserUpdateForm";
+export { default as LobbyCreateForm } from "./LobbyCreateForm";
+export { default as LobbyUpdateForm } from "./LobbyUpdateForm";
+export { default as GameRoomCreateForm } from "./GameRoomCreateForm";
+export { default as GameRoomUpdateForm } from "./GameRoomUpdateForm";

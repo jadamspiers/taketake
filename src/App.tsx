@@ -22,6 +22,8 @@ import { SignIn } from "./pages/signin-page";
 import { ForgotPassword } from "./pages/forgotpassword-page";
 import { StartPage } from "./pages/start-page";
 import { ApiPage } from "./pages/api-page";
+import { InteractionPage } from "./pages/interaction-page";
+import { TestBoardPage } from "./pages/test-board-page";
 Amplify.configure(awsconfig);
 
 export const App: React.FC = () => {
@@ -53,6 +55,8 @@ export const App: React.FC = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/start" element={<StartPage />} />
         <Route path="/api" element={<ApiPage />} />
+        <Route path="/interaction" element={<InteractionPage />} />
+        <Route path="/testboard" element={<TestBoardPage />} />
         <Route
           path="/profile"
           element={<AuthenticationGuard component={ProfilePage} />}

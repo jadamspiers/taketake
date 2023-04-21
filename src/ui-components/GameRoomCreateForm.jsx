@@ -6,12 +6,18 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { User } from "../models";
+import { GameRoom } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function UserCreateForm(props) {
+export default function GameRoomCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -23,28 +29,20 @@ export default function UserCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
-    image: "",
-    status: "",
-    color: "",
+    open: false,
+    rating: "",
   };
-  const [name, setName] = React.useState(initialValues.name);
-  const [image, setImage] = React.useState(initialValues.image);
-  const [status, setStatus] = React.useState(initialValues.status);
-  const [color, setColor] = React.useState(initialValues.color);
+  const [open, setOpen] = React.useState(initialValues.open);
+  const [rating, setRating] = React.useState(initialValues.rating);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setName(initialValues.name);
-    setImage(initialValues.image);
-    setStatus(initialValues.status);
-    setColor(initialValues.color);
+    setOpen(initialValues.open);
+    setRating(initialValues.rating);
     setErrors({});
   };
   const validations = {
-    name: [{ type: "Required" }],
-    image: [],
-    status: [],
-    color: [],
+    open: [],
+    rating: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -72,10 +70,8 @@ export default function UserCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          name,
-          image,
-          status,
-          color,
+          open,
+          rating,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -105,7 +101,7 @@ export default function UserCreateForm(props) {
               modelFields[key] = undefined;
             }
           });
-          await DataStore.save(new User(modelFields));
+          await DataStore.save(new GameRoom(modelFields));
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -118,116 +114,62 @@ export default function UserCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UserCreateForm")}
+      {...getOverrideProps(overrides, "GameRoomCreateForm")}
       {...rest}
     >
-      <TextField
-        label="Name"
-        isRequired={true}
-        isReadOnly={false}
-        value={name}
+      <SwitchField
+        label="Open"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={open}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = e.target.checked;
           if (onChange) {
             const modelFields = {
-              name: value,
-              image,
-              status,
-              color,
+              open: value,
+              rating,
             };
             const result = onChange(modelFields);
-            value = result?.name ?? value;
+            value = result?.open ?? value;
           }
-          if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+          if (errors.open?.hasError) {
+            runValidationTasks("open", value);
           }
-          setName(value);
+          setOpen(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
-        errorMessage={errors.name?.errorMessage}
-        hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
-      ></TextField>
+        onBlur={() => runValidationTasks("open", open)}
+        errorMessage={errors.open?.errorMessage}
+        hasError={errors.open?.hasError}
+        {...getOverrideProps(overrides, "open")}
+      ></SwitchField>
       <TextField
-        label="Image"
+        label="Rating"
         isRequired={false}
         isReadOnly={false}
-        value={image}
+        type="number"
+        step="any"
+        value={rating}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              name,
-              image: value,
-              status,
-              color,
+              open,
+              rating: value,
             };
             const result = onChange(modelFields);
-            value = result?.image ?? value;
+            value = result?.rating ?? value;
           }
-          if (errors.image?.hasError) {
-            runValidationTasks("image", value);
+          if (errors.rating?.hasError) {
+            runValidationTasks("rating", value);
           }
-          setImage(value);
+          setRating(value);
         }}
-        onBlur={() => runValidationTasks("image", image)}
-        errorMessage={errors.image?.errorMessage}
-        hasError={errors.image?.hasError}
-        {...getOverrideProps(overrides, "image")}
-      ></TextField>
-      <TextField
-        label="Status"
-        isRequired={false}
-        isReadOnly={false}
-        value={status}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              image,
-              status: value,
-              color,
-            };
-            const result = onChange(modelFields);
-            value = result?.status ?? value;
-          }
-          if (errors.status?.hasError) {
-            runValidationTasks("status", value);
-          }
-          setStatus(value);
-        }}
-        onBlur={() => runValidationTasks("status", status)}
-        errorMessage={errors.status?.errorMessage}
-        hasError={errors.status?.hasError}
-        {...getOverrideProps(overrides, "status")}
-      ></TextField>
-      <TextField
-        label="Color"
-        isRequired={false}
-        isReadOnly={false}
-        value={color}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              image,
-              status,
-              color: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.color ?? value;
-          }
-          if (errors.color?.hasError) {
-            runValidationTasks("color", value);
-          }
-          setColor(value);
-        }}
-        onBlur={() => runValidationTasks("color", color)}
-        errorMessage={errors.color?.errorMessage}
-        hasError={errors.color?.hasError}
-        {...getOverrideProps(overrides, "color")}
+        onBlur={() => runValidationTasks("rating", rating)}
+        errorMessage={errors.rating?.errorMessage}
+        hasError={errors.rating?.hasError}
+        {...getOverrideProps(overrides, "rating")}
       ></TextField>
       <Flex
         justifyContent="space-between"
