@@ -57,5 +57,6 @@ type User @model @auth(rules: [{allow: public}, {allow: private}]) {
   Moves: [Move] @hasMany(indexName: "byUser", fields: ["id"])
   Notifications: [Notification] @hasMany(indexName: "byUser", fields: ["id"])
   lobbyID: ID! @index(name: "byLobby")
+  rating: Int
 }
  

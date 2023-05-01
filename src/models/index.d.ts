@@ -207,6 +207,7 @@ type EagerUser = {
   readonly Moves?: (Move | null)[] | null;
   readonly Notifications?: (Notification | null)[] | null;
   readonly lobbyID: string;
+  readonly rating?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -226,6 +227,7 @@ type LazyUser = {
   readonly Moves: AsyncCollection<Move>;
   readonly Notifications: AsyncCollection<Notification>;
   readonly lobbyID: string;
+  readonly rating?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

@@ -89,6 +89,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "liveMatchMaker": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "matchmakerHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -100,6 +105,16 @@
       "service": "Lambda"
     },
     "startMatchMakingHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "theMatchmaker": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "wsMatchmakingApiHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -135,6 +150,22 @@
         {
           "category": "function",
           "resourceName": "helloHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_liveMatchMaker_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "liveMatchMaker"
+        }
+      ]
+    },
+    "AMPLIFY_function_liveMatchMaker_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "liveMatchMaker"
         }
       ]
     },
@@ -183,6 +214,38 @@
         {
           "category": "function",
           "resourceName": "startMatchMakingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_theMatchmaker_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "theMatchmaker"
+        }
+      ]
+    },
+    "AMPLIFY_function_theMatchmaker_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "theMatchmaker"
+        }
+      ]
+    },
+    "AMPLIFY_function_wsMatchmakingApiHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "wsMatchmakingApiHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_wsMatchmakingApiHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "wsMatchmakingApiHandler"
         }
       ]
     }

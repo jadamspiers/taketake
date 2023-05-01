@@ -342,6 +342,7 @@ export const onCreateUser = /* GraphQL */ `
         startedAt
       }
       lobbyID
+      rating
       createdAt
       updatedAt
       _version
@@ -375,6 +376,7 @@ export const onUpdateUser = /* GraphQL */ `
         startedAt
       }
       lobbyID
+      rating
       createdAt
       updatedAt
       _version
@@ -408,6 +410,7 @@ export const onDeleteUser = /* GraphQL */ `
         startedAt
       }
       lobbyID
+      rating
       createdAt
       updatedAt
       _version
@@ -441,6 +444,7 @@ export const onCreateGameRoomUser = /* GraphQL */ `
         status
         color
         lobbyID
+        rating
         createdAt
         updatedAt
         _version
@@ -480,6 +484,7 @@ export const onUpdateGameRoomUser = /* GraphQL */ `
         status
         color
         lobbyID
+        rating
         createdAt
         updatedAt
         _version
@@ -519,6 +524,7 @@ export const onDeleteGameRoomUser = /* GraphQL */ `
         status
         color
         lobbyID
+        rating
         createdAt
         updatedAt
         _version

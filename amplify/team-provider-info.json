@@ -35,7 +35,19 @@
         },
         "matchmakerHandler": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
-          "s3Key": "amplify-builds/matchmakerHandler-65565335475442316574-build.zip"
+          "s3Key": "amplify-builds/matchmakerHandler-76505a656a3772544b38-build.zip"
+        },
+        "wsMatchmakingApiHandler": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/wsMatchmakingApiHandler-51522b2b705459374870-build.zip"
+        },
+        "liveMatchMaker": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/liveMatchMaker-32654b6776696f4e7075-build.zip"
+        },
+        "theMatchmaker": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/theMatchmaker-73702f6b7a5a64457030-build.zip"
         }
       },
       "api": {
