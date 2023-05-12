@@ -6,7 +6,7 @@
  */
 
 import { useAuth } from '../hooks/useAuth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Auth, Amplify, API, graphqlOperation } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE, GraphQLSubscription, GraphQLQuery } from '@aws-amplify/api';
 import * as queries from "../graphql/queries";
@@ -28,7 +28,8 @@ import {
     DescribeMatchmakingCommand
 } from '@aws-sdk/client-gamelift';
 import { SNSClient, SubscribeCommand, ConfirmSubscriptionCommand, GetTopicAttributesCommand } from '@aws-sdk/client-sns';
-
+// import { DynamoDBStreamsClient, QueryCommand } from "@aws-sdk/client-dynamodb-streams";
+import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 
 export const TestBoardPage = () => {
 
@@ -43,6 +44,66 @@ export const TestBoardPage = () => {
     const [lookForUsers, setLookForUser] = useState(false);
     const [opponentId, setOpponentId] = useState("");
     const [ticket, setTicket] = useState("");
+    const [subscribeOnCreateGameRoomUser, setSubscribeOnCreateGameRoomUser] = useState(false);
+
+    useEffect(() => {
+        let sub;
+        if (subscribeOnCreateGameRoomUser) {
+            console.log("SUBSCRIBING TO ONCREATEGAMEUSER");
+            sub = API.graphql(
+                graphqlOperation(subscriptions.onCreateGameRoomUser, {
+                    filter: { id: { eq: auth.userId }},
+                })).subscribe({
+                    next: ({ value }) => {
+                        console.log("USER HAS JOINED GAME ROOM!");
+                        setSubscribeOnCreateGameRoomUser(false);
+                    },
+                    error: (error) => console.log(error)
+                });
+        }
+
+        return () => {
+            if (sub) {
+                sub.unsubscribe();
+            }
+        };
+    }, [subscribeOnCreateGameRoomUser])
+
+    const queryGameRooms = async () => {
+
+        let access_key_id = ""
+        let secret_access_key = ""
+    
+        if (process.env.REACT_APP_ACCESS_KEY_ID && process.env.REACT_APP_SECRET_ACCESS_KEY) {
+            access_key_id = process.env.REACT_APP_ACCESS_KEY_ID
+            secret_access_key = process.env.REACT_APP_SECRET_ACCESS_KEY
+        } else {
+            console.log("ERROR: environment variables not found")
+        }
+    
+        const creds = {
+            accessKeyId: access_key_id,
+            secretAccessKey: secret_access_key
+        }
+
+        const client = new DynamoDBClient({ region: "us-east-2", credentials: creds });
+        const input = {
+            TableName: "GameRoomUser-lv5ggagqpvhzrgebeq7lccsfuy-staging",
+            ExpressionAttributeValues: {
+                ':uid' : {S: "5b42a33f-344c-4459-ac5b-2bdc896f828e"},
+            },
+            FilterExpression: "userId = :uid"
+        }
+
+        const command = new ScanCommand(input);
+        try {
+            const response = await client.send(command);
+            console.log("response: " + JSON.stringify(response));
+            console.log("userId: " + auth.userId);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     const subscribeTopic = async () => {
 
@@ -81,7 +142,7 @@ export const TestBoardPage = () => {
             console.log("gameRoomID: " + currentGameRoomId);
             console.log("userID: " + auth.userId);
 
-            const createUserGameRoomInput: CreateGameRoomUserInput = {
+            const createUserGameRoomInput = {
                 gameRoomId: currentGameRoomId,
                 userId: auth.userId
             }
@@ -151,6 +212,9 @@ export const TestBoardPage = () => {
         } catch (error) {
             console.log(error);
         }
+
+        // then subscribe for onCreateGameRoomUser
+        setSubscribeOnCreateGameRoomUser(true);
     }
 
     const leaveGame = async () => {
@@ -158,7 +222,7 @@ export const TestBoardPage = () => {
         try {
 
             const deleteUserInput = {
-                id: "3cb9e655-b47b-49c8-88ba-342fa6154f00",
+                id: "4a1b60a8-13be-4d8b-a0ad-5375b59ebd7c",
                 _version: 1
             }
     
@@ -171,6 +235,10 @@ export const TestBoardPage = () => {
         } catch (error) {
             console.log(error);
         }   
+    }
+
+    const createNewGameRoom = async () => {
+
     }
 
     return (
@@ -248,6 +316,13 @@ export const TestBoardPage = () => {
                     className="h-12 px-4 m-2 rounded-md bg-indigo-600  text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                     Leave Game
+                </button>
+                <button
+                    type="button"
+                    onClick={queryGameRooms}
+                    className="h-12 px-4 m-2 rounded-md bg-indigo-600  text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                    Query Game Room
                 </button>
             </div>
 

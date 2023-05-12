@@ -47,7 +47,19 @@
         },
         "theMatchmaker": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
-          "s3Key": "amplify-builds/theMatchmaker-73702f6b7a5a64457030-build.zip"
+          "s3Key": "amplify-builds/theMatchmaker-536d4265573052363338-build.zip"
+        },
+        "createGameRoom": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/createGameRoom-2f41644c51374768544c-build.zip"
+        },
+        "testInvokeLambda": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/testInvokeLambda-5549384c4179632f4352-build.zip"
+        },
+        "clearRedisCache": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/clearRedisCache-634e536d45664f634b45-build.zip"
         }
       },
       "api": {

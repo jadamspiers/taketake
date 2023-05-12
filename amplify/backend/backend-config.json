@@ -79,6 +79,16 @@
     }
   },
   "function": {
+    "clearRedisCache": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "createGameRoom": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "createPlayerSessionHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -109,6 +119,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "testInvokeLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "theMatchmaker": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -121,6 +136,38 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_clearRedisCache_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "clearRedisCache"
+        }
+      ]
+    },
+    "AMPLIFY_function_clearRedisCache_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "clearRedisCache"
+        }
+      ]
+    },
+    "AMPLIFY_function_createGameRoom_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createGameRoom"
+        }
+      ]
+    },
+    "AMPLIFY_function_createGameRoom_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createGameRoom"
+        }
+      ]
+    },
     "AMPLIFY_function_createPlayerSessionHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -214,6 +261,22 @@
         {
           "category": "function",
           "resourceName": "startMatchMakingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_testInvokeLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "testInvokeLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_testInvokeLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "testInvokeLambda"
         }
       ]
     },
