@@ -45,6 +45,7 @@ export const TestBoardPage = () => {
     const [opponentId, setOpponentId] = useState("");
     const [ticket, setTicket] = useState("");
     const [subscribeOnCreateGameRoomUser, setSubscribeOnCreateGameRoomUser] = useState(false);
+    const [showBoard, setShowBoard] = useState(false);
 
     useEffect(() => {
         let sub;
@@ -90,7 +91,7 @@ export const TestBoardPage = () => {
         const input = {
             TableName: "GameRoomUser-lv5ggagqpvhzrgebeq7lccsfuy-staging",
             ExpressionAttributeValues: {
-                ':uid' : {S: "5b42a33f-344c-4459-ac5b-2bdc896f828e"},
+                ':uid' : {S: auth.userId},
             },
             FilterExpression: "userId = :uid"
         }
@@ -99,7 +100,8 @@ export const TestBoardPage = () => {
         try {
             const response = await client.send(command);
             console.log("response: " + JSON.stringify(response));
-            console.log("userId: " + auth.userId);
+            setCurrentGameRoomId(response.Items[0].gameRoomId.S)
+            setShowBoard(true);
         } catch (err) {
             console.log(err);
         }
@@ -134,63 +136,6 @@ export const TestBoardPage = () => {
         } catch (error) {
             console.log(error);
         }
-    }
-
-    const joinGameRoom = async () => {
-        // add the current user to the newly created GameRoom
-        try {
-            console.log("gameRoomID: " + currentGameRoomId);
-            console.log("userID: " + auth.userId);
-
-            const createUserGameRoomInput = {
-                gameRoomId: currentGameRoomId,
-                userId: auth.userId
-            }
-
-            await API.graphql(
-                graphqlOperation(mutations.createGameRoomUser, {
-                    input: createUserGameRoomInput,
-                })
-            )
-            setJoinedRoom(true);
-            console.log("Added User (" + auth.userId + ") to GameRoom (" + currentGameRoomId + ")");
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    
-    const createGameRoom = async () => {
-        let newGameRoom;
-
-        // create a new game room
-        try {
-
-            const newGameRoomData = await API.graphql(
-                graphqlOperation(mutations.createGameRoom, { 
-                    input: {
-                        open: true,
-                        rating: 800
-                    } 
-                })
-            );
-
-            const gameDataStr = JSON.stringify(newGameRoomData);
-            const gameDataObj = JSON.parse(gameDataStr);
-
-            if (!gameDataObj.data?.createGameRoom) {
-                console.log("Error creating the game room");
-                return;
-            }
-
-            newGameRoom = gameDataObj.data?.createGameRoom;
-
-            console.log("Created GameRoom (" + newGameRoom.id + ")");
-            setCurrentGameRoomId(newGameRoom.id);
-
-        } catch (error) {
-            console.log(error);
-        }
-
     }
 
     const joinGame = async () => {
@@ -245,9 +190,6 @@ export const TestBoardPage = () => {
         <>
             <div>
                 <div>
-                    Current Game Room: {currentGameRoomId}
-                </div>
-                <div>
                     Did Join: {joinedRoom}
                 </div>
                 <div>
@@ -256,10 +198,6 @@ export const TestBoardPage = () => {
             </div>
             <div className="flex flex-col">
                 <div>
-                    Current Game Room ID:
-                    <input
-                        onChange={(e) => setCurrentGameRoomId(e.target.value)}
-                    />
                     Rating:
                     <input
                         onChange={(e) => setRating(Number(e.target.value))}
@@ -269,13 +207,6 @@ export const TestBoardPage = () => {
                         onChange={(e) => setTicket(e.target.value)}
                     />
                 </div>
-                <button
-                    type="button"
-                    onClick={joinGameRoom}
-                    className="h-12 px-4 m-2 rounded-md bg-indigo-600  text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    Join Room
-                </button>
                 <button
                     type="button"
                     onClick={() => setDraw(true)}
@@ -327,14 +258,18 @@ export const TestBoardPage = () => {
             </div>
 
             <div>
-                <TestBoard
-                    boardWidth={700}
-                    joined_room_state={currentGameRoomId}
-                    color_state={color}
-                    draw_state={draw}
-                    resign_state={resign}
-                    set_draw_state={setDraw}
-                />
+                {showBoard
+                    ? <TestBoard
+                        boardWidth={700}
+                        joined_room_state={currentGameRoomId}
+                        color_state={color}
+                        draw_state={draw}
+                        resign_state={resign}
+                        set_draw_state={setDraw}
+                    />
+                    : <div>Waiting to join</div>
+                }
+
             </div>
 
         </>

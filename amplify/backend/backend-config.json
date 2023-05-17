@@ -79,6 +79,16 @@
     }
   },
   "function": {
+    "apiRealtimeMovesJoinRoom": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "apiRealtimeMovesSendMove": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "clearRedisCache": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -136,6 +146,38 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_apiRealtimeMovesJoinRoom_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiRealtimeMovesJoinRoom"
+        }
+      ]
+    },
+    "AMPLIFY_function_apiRealtimeMovesJoinRoom_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiRealtimeMovesJoinRoom"
+        }
+      ]
+    },
+    "AMPLIFY_function_apiRealtimeMovesSendMove_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiRealtimeMovesSendMove"
+        }
+      ]
+    },
+    "AMPLIFY_function_apiRealtimeMovesSendMove_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiRealtimeMovesSendMove"
+        }
+      ]
+    },
     "AMPLIFY_function_clearRedisCache_deploymentBucketName": {
       "usedBy": [
         {

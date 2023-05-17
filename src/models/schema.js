@@ -689,6 +689,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "connectionId": {
+                    "name": "connectionId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -851,5 +858,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.0",
-    "version": "be60a4caf6a97b069d3acf0900d395c9"
+    "version": "51669644b6dfe62f4025106426540fed"
 };

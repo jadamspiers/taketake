@@ -23,6 +23,20 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "apiRealtimeMovesJoinRoom": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "apiRealtimeMovesSendMove": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "clearRedisCache": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

@@ -208,6 +208,7 @@ type EagerUser = {
   readonly Notifications?: (Notification | null)[] | null;
   readonly lobbyID: string;
   readonly rating?: number | null;
+  readonly connectionId?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -228,6 +229,7 @@ type LazyUser = {
   readonly Notifications: AsyncCollection<Notification>;
   readonly lobbyID: string;
   readonly rating?: number | null;
+  readonly connectionId?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

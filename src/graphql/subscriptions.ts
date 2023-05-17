@@ -343,6 +343,7 @@ export const onCreateUser = /* GraphQL */ `
       }
       lobbyID
       rating
+      connectionId
       createdAt
       updatedAt
       _version
@@ -377,6 +378,7 @@ export const onUpdateUser = /* GraphQL */ `
       }
       lobbyID
       rating
+      connectionId
       createdAt
       updatedAt
       _version
@@ -411,6 +413,7 @@ export const onDeleteUser = /* GraphQL */ `
       }
       lobbyID
       rating
+      connectionId
       createdAt
       updatedAt
       _version
@@ -445,6 +448,7 @@ export const onCreateGameRoomUser = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
@@ -485,6 +489,7 @@ export const onUpdateGameRoomUser = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
@@ -525,6 +530,7 @@ export const onDeleteGameRoomUser = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version

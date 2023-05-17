@@ -385,6 +385,7 @@ export const createUser = /* GraphQL */ `
       }
       lobbyID
       rating
+      connectionId
       createdAt
       updatedAt
       _version
@@ -422,6 +423,7 @@ export const updateUser = /* GraphQL */ `
       }
       lobbyID
       rating
+      connectionId
       createdAt
       updatedAt
       _version
@@ -459,6 +461,7 @@ export const deleteUser = /* GraphQL */ `
       }
       lobbyID
       rating
+      connectionId
       createdAt
       updatedAt
       _version
@@ -494,6 +497,7 @@ export const createGameRoomUser = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
@@ -535,6 +539,7 @@ export const updateGameRoomUser = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
@@ -576,6 +581,7 @@ export const deleteGameRoomUser = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version

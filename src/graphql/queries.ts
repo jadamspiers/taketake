@@ -617,6 +617,7 @@ export const getUser = /* GraphQL */ `
       }
       lobbyID
       rating
+      connectionId
       createdAt
       updatedAt
       _version
@@ -640,6 +641,7 @@ export const listUsers = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
@@ -672,6 +674,7 @@ export const syncUsers = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
@@ -706,6 +709,7 @@ export const usersByLobbyID = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
@@ -741,6 +745,7 @@ export const getGameRoomUser = /* GraphQL */ `
         color
         lobbyID
         rating
+        connectionId
         createdAt
         updatedAt
         _version
