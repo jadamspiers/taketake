@@ -16,6 +16,20 @@
           "read"
         ]
       }
+    },
+    "/leaderboard": {
+      "name": "/leaderboard",
+      "lambdaFunction": "leaderboard",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/joinTournament": {
+      "name": "/joinTournament",
+      "lambdaFunction": "joinTournamentHandler",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

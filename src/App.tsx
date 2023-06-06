@@ -25,6 +25,9 @@ import { ApiPage } from "./pages/api-page";
 import { InteractionPage } from "./pages/interaction-page";
 import SponsorPage from "./pages/sponsor-page";
 import { TestBoardPage } from "./pages/test-board-page.jsx";
+import { LeaderboardPage } from "./pages/leaderboard";
+import { TournamentPage } from "./pages/tournaments";
+import { LichessPage } from "./pages/lichess-page.jsx";
 Amplify.configure(awsconfig);
 
 export const App: React.FC = () => {
@@ -59,6 +62,9 @@ export const App: React.FC = () => {
         <Route path="/interaction" element={<InteractionPage />} />
         <Route path="/testboard" element={<TestBoardPage />} />
         <Route path="/sponsor" element={<SponsorPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route path="/tournaments" element={<TournamentPage />} />
+        <Route path="/lichess" element={<LichessPage />} />
         <Route
           path="/profile"
           element={<AuthenticationGuard component={ProfilePage} />}

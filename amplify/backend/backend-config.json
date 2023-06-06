@@ -44,6 +44,22 @@
           ],
           "category": "function",
           "resourceName": "matchmakerHandler"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "leaderboard"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "joinTournamentHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -109,6 +125,16 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "joinTournamentHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "leaderboard": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "liveMatchMaker": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -135,6 +161,11 @@
       "service": "Lambda"
     },
     "theMatchmaker": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "tournamentMonitor": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -242,6 +273,38 @@
         }
       ]
     },
+    "AMPLIFY_function_joinTournamentHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinTournamentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinTournamentHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinTournamentHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_leaderboard_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "leaderboard"
+        }
+      ]
+    },
+    "AMPLIFY_function_leaderboard_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "leaderboard"
+        }
+      ]
+    },
     "AMPLIFY_function_liveMatchMaker_deploymentBucketName": {
       "usedBy": [
         {
@@ -335,6 +398,22 @@
         {
           "category": "function",
           "resourceName": "theMatchmaker"
+        }
+      ]
+    },
+    "AMPLIFY_function_tournamentMonitor_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "tournamentMonitor"
+        }
+      ]
+    },
+    "AMPLIFY_function_tournamentMonitor_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "tournamentMonitor"
         }
       ]
     },

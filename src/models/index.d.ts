@@ -209,6 +209,9 @@ type EagerUser = {
   readonly lobbyID: string;
   readonly rating?: number | null;
   readonly connectionId?: string | null;
+  readonly walletAddress?: string | null;
+  readonly lichessUsername?: string | null;
+  readonly gameCount?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -230,6 +233,9 @@ type LazyUser = {
   readonly lobbyID: string;
   readonly rating?: number | null;
   readonly connectionId?: string | null;
+  readonly walletAddress?: string | null;
+  readonly lichessUsername?: string | null;
+  readonly gameCount?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

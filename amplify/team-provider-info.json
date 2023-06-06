@@ -63,11 +63,23 @@
         },
         "apiRealtimeMovesSendMove": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
-          "s3Key": "amplify-builds/apiRealtimeMovesSendMove-46685a465573692b4446-build.zip"
+          "s3Key": "amplify-builds/apiRealtimeMovesSendMove-68675068546342634534-build.zip"
         },
         "apiRealtimeMovesJoinRoom": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
           "s3Key": "amplify-builds/apiRealtimeMovesJoinRoom-30566c6d7157456d324c-build.zip"
+        },
+        "leaderboard": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/leaderboard-6c63623650776449586e-build.zip"
+        },
+        "joinTournamentHandler": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/joinTournamentHandler-2b6964506d6746463550-build.zip"
+        },
+        "tournamentMonitor": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/tournamentMonitor-68357a65626f6c696338-build.zip"
         }
       },
       "api": {

@@ -696,6 +696,27 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "walletAddress": {
+                    "name": "walletAddress",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lichessUsername": {
+                    "name": "lichessUsername",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "gameCount": {
+                    "name": "gameCount",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -858,5 +879,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.0",
-    "version": "51669644b6dfe62f4025106426540fed"
+    "version": "be601ab81f210f9aa3ad91264d657534"
 };

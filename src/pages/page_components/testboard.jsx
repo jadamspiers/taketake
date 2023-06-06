@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, Fragment } from 'react';
+import React, { useEffect, useRef, useState, Fragment, forwardRef } from 'react';
 import Chess from 'chess.js';
 
 import { Chessboard } from 'react-chessboard';
@@ -21,14 +21,15 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import CloseIcon from '@mui/icons-material/Close';
 import Check from '@mui/icons-material/Check'
 
-export const TestBoard = ({
+
+export const TestBoard = forwardRef(({
     boardWidth,
     joined_room_state,
     color_state,
     draw_state,
     resign_state,
-    set_draw_state
-}) => {
+    set_draw_state,
+}, ref) => {
 
     const auth = useAuth();
 
@@ -47,6 +48,12 @@ export const TestBoard = ({
     const [showDraw, setShowDraw] = useState(false);
     const [showGameOver, setShowGameOver] = useState(false);
     const [gameOverMsg, setGameOverMsg] = useState("");
+
+    useEffect(() => {
+      ref.onmessage = (event) => {
+        console.log("Received message from testboard component: " + event.data);
+      }
+    }, [ref]);
 
     useEffect(() => {
       if (color_state === "white") {
@@ -164,6 +171,8 @@ export const TestBoard = ({
                         } else if (is_gameover && is_draw) {
                           setGameOverMsg("game ended in draw by agreement");
                           setShowGameOver(true);
+                          // clear all notifications in the game room
+                          
                         } else if (is_gameover && is_stalemate) {
                           setGameOverMsg("game ended in draw by stalemate");
                           setShowGameOver(true);
@@ -230,44 +239,12 @@ export const TestBoard = ({
       };
     }, [joined_room_state, color_state]);
 
-    // 1. update the board upon change of the last move that was received by the server
-    // useEffect(() => {
-    //     if (lastMove !== "" && lastMoveReceived.sender !== auth.userId) {
-    //         console.log("RECEIVED OPPONENT'S MOVE: updating board");
-    //         const source = lastMove.source;
-    //         const target = lastMove.target;
-    //         const piece = lastMove.piece;
-    //         onDrop(source, target, piece);
-    //         // TODO: updateBoard here
-    //     }
-    // }, [lastMoveReceived]);
-
     const showGameOverDialog = () => {
       console.log("opening game over dialog");
       const handleClose = () => {
         setShowGameOver(false);
       }
 
-      // return (
-      //   <Dialog
-      //     open={showGameOver}
-      //     onClose={handleClose}
-      //     aria-labelledby="alert-dialog-title"
-      //     aria-describedby="alert-dialog-description"
-      //   >
-      //     <DialogTitle id="alert-dialog-title">
-      //       {"Game Over"}
-      //     </DialogTitle>
-      //     <DialogContent>
-      //       <DialogContentText id="alert-dialog-description">
-      //         The game ended in a draw
-      //       </DialogContentText>
-      //     </DialogContent>
-      //     <DialogActions>
-      //       <Button onClick={handleClose}>Okay</Button>
-      //     </DialogActions>
-      //   </Dialog>
-      // )
       return (
         <Dialog
           open={showGameOver}
@@ -602,8 +579,11 @@ export const TestBoard = ({
           >
             undo
           </button>
+          <button>
+            
+          </button>
           {promptDraw()}
         </div>
       </>
     );
-}
+});

@@ -344,6 +344,9 @@ export const onCreateUser = /* GraphQL */ `
       lobbyID
       rating
       connectionId
+      walletAddress
+      lichessUsername
+      gameCount
       createdAt
       updatedAt
       _version
@@ -379,6 +382,9 @@ export const onUpdateUser = /* GraphQL */ `
       lobbyID
       rating
       connectionId
+      walletAddress
+      lichessUsername
+      gameCount
       createdAt
       updatedAt
       _version
@@ -414,6 +420,9 @@ export const onDeleteUser = /* GraphQL */ `
       lobbyID
       rating
       connectionId
+      walletAddress
+      lichessUsername
+      gameCount
       createdAt
       updatedAt
       _version
@@ -449,6 +458,9 @@ export const onCreateGameRoomUser = /* GraphQL */ `
         lobbyID
         rating
         connectionId
+        walletAddress
+        lichessUsername
+        gameCount
         createdAt
         updatedAt
         _version
@@ -490,6 +502,9 @@ export const onUpdateGameRoomUser = /* GraphQL */ `
         lobbyID
         rating
         connectionId
+        walletAddress
+        lichessUsername
+        gameCount
         createdAt
         updatedAt
         _version
@@ -531,6 +546,9 @@ export const onDeleteGameRoomUser = /* GraphQL */ `
         lobbyID
         rating
         connectionId
+        walletAddress
+        lichessUsername
+        gameCount
         createdAt
         updatedAt
         _version

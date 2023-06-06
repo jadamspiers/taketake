@@ -59,5 +59,8 @@ type User @model @auth(rules: [{allow: public}, {allow: private}]) {
   lobbyID: ID! @index(name: "byLobby")
   rating: Int
   connectionId: String
+  walletAddress: String
+  lichessUsername: String
+  gameCount: Int
 }
  

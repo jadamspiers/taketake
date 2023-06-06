@@ -618,6 +618,9 @@ export const getUser = /* GraphQL */ `
       lobbyID
       rating
       connectionId
+      walletAddress
+      lichessUsername
+      gameCount
       createdAt
       updatedAt
       _version
@@ -642,6 +645,9 @@ export const listUsers = /* GraphQL */ `
         lobbyID
         rating
         connectionId
+        walletAddress
+        lichessUsername
+        gameCount
         createdAt
         updatedAt
         _version
@@ -675,6 +681,9 @@ export const syncUsers = /* GraphQL */ `
         lobbyID
         rating
         connectionId
+        walletAddress
+        lichessUsername
+        gameCount
         createdAt
         updatedAt
         _version
@@ -710,6 +719,9 @@ export const usersByLobbyID = /* GraphQL */ `
         lobbyID
         rating
         connectionId
+        walletAddress
+        lichessUsername
+        gameCount
         createdAt
         updatedAt
         _version
@@ -746,6 +758,9 @@ export const getGameRoomUser = /* GraphQL */ `
         lobbyID
         rating
         connectionId
+        walletAddress
+        lichessUsername
+        gameCount
         createdAt
         updatedAt
         _version
