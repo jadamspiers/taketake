@@ -7,29 +7,29 @@
 
 import { useAuth } from '../hooks/useAuth';
 import { useEffect, useRef, useState } from 'react';
-import { Auth, Amplify, API, graphqlOperation } from 'aws-amplify';
-import { GRAPHQL_AUTH_MODE, GraphQLSubscription, GraphQLQuery } from '@aws-amplify/api';
-import * as queries from "../graphql/queries";
+import { API, graphqlOperation } from 'aws-amplify';
+// import { GRAPHQL_AUTH_MODE, GraphQLSubscription, GraphQLQuery } from '@aws-amplify/api';
+// import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
-import * as subscriptions from "../graphql/subscriptions";
-import { 
-    OnCreateMessageSubscription,
-    CreateGameRoomInput,
-    CreateMessageInput,
-    OnUpdateGameRoomSubscription,
-    GetGameRoomQuery,
-    CreateGameRoomUserInput
-} from "../API";
+// import * as subscriptions from "../graphql/subscriptions";
+// import { 
+//     OnCreateMessageSubscription,
+//     CreateGameRoomInput,
+//     CreateMessageInput,
+//     OnUpdateGameRoomSubscription,
+//     GetGameRoomQuery,
+//     CreateGameRoomUserInput
+// } from "../API";
 import { TestBoard } from './page_components/testboard';
-import { ComponentPropsToStylePropsMap } from '@aws-amplify/ui-react';
-import {
-    GameLiftClient,
-    StartMatchmakingCommand,
-    DescribeMatchmakingCommand
-} from '@aws-sdk/client-gamelift';
-import { SNSClient, SubscribeCommand, ConfirmSubscriptionCommand, GetTopicAttributesCommand } from '@aws-sdk/client-sns';
-// import { DynamoDBStreamsClient, QueryCommand } from "@aws-sdk/client-dynamodb-streams";
-import { DynamoDBClient, ScanCommand, BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
+// import { ComponentPropsToStylePropsMap } from '@aws-amplify/ui-react';
+// import {
+//     GameLiftClient,
+//     StartMatchmakingCommand,
+//     DescribeMatchmakingCommand
+// } from '@aws-sdk/client-gamelift';
+// import { SNSClient, SubscribeCommand, ConfirmSubscriptionCommand, GetTopicAttributesCommand } from '@aws-sdk/client-sns';
+// // import { DynamoDBStreamsClient, QueryCommand } from "@aws-sdk/client-dynamodb-streams";
+// import { DynamoDBClient, ScanCommand, BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
 
 export const TestBoardPage = () => {
 

@@ -59,7 +59,7 @@
         },
         "clearRedisCache": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
-          "s3Key": "amplify-builds/clearRedisCache-634e536d45664f634b45-build.zip"
+          "s3Key": "amplify-builds/clearRedisCache-4f434969425745597273-build.zip"
         },
         "apiRealtimeMovesSendMove": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
@@ -79,7 +79,19 @@
         },
         "tournamentMonitor": {
           "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
-          "s3Key": "amplify-builds/tournamentMonitor-68357a65626f6c696338-build.zip"
+          "s3Key": "amplify-builds/tournamentMonitor-4d62795171656a664644-build.zip"
+        },
+        "listRedisCache": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/listRedisCache-3741566f444e76307238-build.zip"
+        },
+        "sendTransaction": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/sendTransaction-515732644f6c38392b66-build.zip"
+        },
+        "endTournament": {
+          "deploymentBucketName": "amplify-taketake-staging-181436-deployment",
+          "s3Key": "amplify-builds/endTournament-526a47686c6e71475853-build.zip"
         }
       },
       "api": {

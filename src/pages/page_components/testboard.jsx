@@ -2,22 +2,21 @@ import React, { useEffect, useRef, useState, Fragment, forwardRef } from 'react'
 import Chess from 'chess.js';
 
 import { Chessboard } from 'react-chessboard';
-import { Auth, Amplify, API, graphqlOperation } from 'aws-amplify';
-import { GRAPHQL_AUTH_MODE, GraphQLSubscription, GraphQLQuery } from '@aws-amplify/api';
-import * as queries from "../../graphql/queries";
+import { API, graphqlOperation } from 'aws-amplify';
+// import { GRAPHQL_AUTH_MODE, GraphQLSubscription, GraphQLQuery } from '@aws-amplify/api';
+// import * as queries from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
 import * as subscriptions from "../../graphql/subscriptions";
-import { 
-    OnCreateMessageSubscription,
-    CreateGameRoomInput,
-    CreateMessageInput,
-    OnUpdateGameRoomSubscription,
-    GetGameRoomQuery,
-    CreateGameRoomUserInput
-} from "../../API";
-import { authFieldsWithDefaults } from '@aws-amplify/ui';
+// import { 
+//     OnCreateMessageSubscription,
+//     CreateGameRoomInput,
+//     CreateMessageInput,
+//     OnUpdateGameRoomSubscription,
+//     GetGameRoomQuery,
+// } from "../../API";
+// import { authFieldsWithDefaults } from '@aws-amplify/ui';
 import { useAuth } from '../../hooks/useAuth';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Snackbar } from '@mui/material';
+import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Snackbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Check from '@mui/icons-material/Check'
 

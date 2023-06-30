@@ -120,6 +120,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "endTournament": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "helloHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -135,6 +140,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "listRedisCache": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "liveMatchMaker": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -146,6 +156,11 @@
       "service": "Lambda"
     },
     "searchGameSessionsHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "sendTransaction": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -257,6 +272,22 @@
         }
       ]
     },
+    "AMPLIFY_function_endTournament_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "endTournament"
+        }
+      ]
+    },
+    "AMPLIFY_function_endTournament_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "endTournament"
+        }
+      ]
+    },
     "AMPLIFY_function_helloHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -305,6 +336,22 @@
         }
       ]
     },
+    "AMPLIFY_function_listRedisCache_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "listRedisCache"
+        }
+      ]
+    },
+    "AMPLIFY_function_listRedisCache_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "listRedisCache"
+        }
+      ]
+    },
     "AMPLIFY_function_liveMatchMaker_deploymentBucketName": {
       "usedBy": [
         {
@@ -350,6 +397,22 @@
         {
           "category": "function",
           "resourceName": "searchGameSessionsHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendTransaction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendTransaction"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendTransaction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendTransaction"
         }
       ]
     },

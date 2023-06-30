@@ -1,19 +1,19 @@
-import { 
-    GameLiftClient,
-    SearchGameSessionsCommand,
-    CreateGameSessionCommand,
-    StartMatchmakingCommand,
-    Player,
-    AttributeValue,
-    DescribeMatchmakingCommand,
-    DescribeMatchmakingCommandInput
-} from '@aws-sdk/client-gamelift';
-import {
-    SQSClient,
-    ReceiveMessageCommand
-} from '@aws-sdk/client-sqs';
-import { AwsCredentialIdentity } from '@aws-sdk/types';
-import axios from 'axios';
+// import { 
+//     GameLiftClient,
+//     SearchGameSessionsCommand,
+//     CreateGameSessionCommand,
+//     StartMatchmakingCommand,
+//     Player,
+//     AttributeValue,
+//     DescribeMatchmakingCommand,
+//     DescribeMatchmakingCommandInput
+// } from '@aws-sdk/client-gamelift';
+// import {
+//     SQSClient,
+//     ReceiveMessageCommand
+// } from '@aws-sdk/client-sqs';
+// import { AwsCredentialIdentity } from '@aws-sdk/types';
+// import axios from 'axios';
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { API } from 'aws-amplify';

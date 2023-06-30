@@ -71,7 +71,8 @@ exports.handler = async (event) => {
     /**
      * Connect to Redis
      */
-        /**
+
+    /**
      * Store the user in the redis cache if not already there
      */
     console.log("establishing connection to redis...");
@@ -133,12 +134,41 @@ exports.handler = async (event) => {
             }
             
             // then return the current list
-            console.log("getting 'init-lichess-list'...");
+            console.log("getting 'cur-lichess-list'...");
             try {
                 lichessList = await redisClient.lrange("cur-lichess-list", 0, -1);
                 console.log("cur-lichess-list: " + lichessList);
             } catch (err) {
                 console.log(err);
+            }
+            break;
+        case 'final':
+            // compare the current user data with the initial user data
+            let initLichessList;
+            let curLichessList;
+            try {
+                initLichessList = await redisClient.lrange("init-lichess-list", 0, -1);
+                curLichessList = await redisClient.lrange("cur-lichess-list", 0, -1);
+                console.log("init-lichess-list: " + initLichessList);
+                console.log("cur-lichess-list: " + curLichessList);
+            } catch (err) {
+                console.log(err);
+            }
+
+            // then add the differences to a final redis cache list
+            console.log("adding final user scores to 'fin-lichess-list'...");
+            for (let i = 0; i < initLichessList.length; i++) {
+                let initLichessUser = JSON.parse(initLichessList[i]);
+                let curLichessUser = JSON.parse(curLichessList[i]);
+                let finLichessUser = {
+                    lichessUsername: initLichessUser.lichessUsername,
+                    gameCount: curLichessUser.gameCount - initLichessUser.gameCount
+                }
+                try {
+                    await redisClient.lpush("fin-lichess-list", JSON.stringify(finLichessUser));
+                } catch (err) {
+                    console.log(err);
+                }
             }
             break;
         default:
