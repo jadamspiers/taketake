@@ -1,21 +1,22 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { API } from 'aws-amplify';
 import { Auth } from './page_components/lichess/lichessAuth';
-import { useEditable } from '@chakra-ui/react';
-import { getUser } from '../graphql/queries';
+// import { useEditable } from '@chakra-ui/react';
+// import { getUser } from '../graphql/queries';
 import { ConnectWallet } from '../components/chess/ConnectWallet/ConnectWallet';
 
 export const LichessPage = () => {
 
-    const [uname, setUname] = useState("");
+    // const [uname, setUname] = useState("");
     const [authState, setAuthState] = useState();
     const [hasSet, setHasSet] = useState(false);
     const [wallet, setWallet] = useState();
     const [gameCount, setGameCount] = useState(0);
 
-    const auth = new Auth();
+    // const auth = new Auth();
+    const auth = useMemo(() => new Auth(), []);
     const cognitoAuth = useAuth();
 
     useEffect( () => {
@@ -23,7 +24,7 @@ export const LichessPage = () => {
             setAuthState(auth);
             setHasSet(true);
         }
-    }, [])
+    }, [hasSet, auth])
 
     const initAuth = async () => {
         await authState.init();

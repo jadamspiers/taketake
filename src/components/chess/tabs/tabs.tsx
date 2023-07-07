@@ -28,13 +28,13 @@ export const Tabs = ({
     state_opponent_resigned
 }: any) => {
 
-    useEffect(() => {
-        console.log(JSON.stringify(users_array))
-        console.log("room_name: " + room_name);
-        console.log("room_id: " + room_id);
-        console.log("room_sender: " + room_sender);
-        console.log("sender_message: " + sender_message);
-    }, [])
+    // useEffect(() => {
+    //     console.log(JSON.stringify(users_array))
+    //     console.log("room_name: " + room_name);
+    //     console.log("room_id: " + room_id);
+    //     console.log("room_sender: " + room_sender);
+    //     console.log("sender_message: " + sender_message);
+    // }, [])
 
     const [toggleState, setToggleState] = useState(1);
     

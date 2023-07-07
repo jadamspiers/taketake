@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import './LoadingIcon.css';
 
 export const LoadingIcon = ({time, state_turn, myColor, set_time_expired}: any) => {
 
     const FULL_DASH_ARRAY = 283;
     const [seconds, setSeconds] = useState(time);
-    const [timeString, setTimeString] = useState("");
+    // const [timeString, setTimeString] = useState("");
     const [isActive, setIsActive] = useState(false); // should set this to false as default, then toggle by external trigger
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const LoadingIcon = ({time, state_turn, myColor, set_time_expired}: any) 
         if (myColor !== undefined) {
             setSeconds(time);
         }
-    }, [myColor]);
+    }, [myColor, time]);
 
     function toggleOn() {
         setIsActive(true);
@@ -42,22 +42,22 @@ export const LoadingIcon = ({time, state_turn, myColor, set_time_expired}: any) 
         setIsActive(false);
     }
 
-    function reset() {
-        setSeconds(0);
-        setIsActive(false);
-    }
+    // function reset() {
+    //     setSeconds(0);
+    //     setIsActive(false);
+    // }
 
     // Divides time left by the defined time limit.
-    function calculateTimeFraction() {
+    const calculateTimeFraction = useCallback(() => {
         const rawTimeFraction = seconds / time;
         return rawTimeFraction - (1 / time) * (1 - rawTimeFraction);
-    }
+    }, [seconds, time]);
 
     // Update the dasharray value as time passes, starting with 283
-    function setCircleDasharray() {
+    const setCircleDasharray = useCallback(() => {
         const circleDasharray = `${(calculateTimeFraction() * FULL_DASH_ARRAY).toFixed(0)} 283`;
         document.getElementById("base-timer-path-remaining")?.setAttribute("stroke-dasharray", circleDasharray);
-    }
+    }, [calculateTimeFraction]);
 
     function formatTimeLeft (timeLeft: any) {
         let secString = "";
@@ -71,7 +71,7 @@ export const LoadingIcon = ({time, state_turn, myColor, set_time_expired}: any) 
             secString = "0" + seconds;
         }
 
-        timeString = minutes + ":" + secString
+        timeString = minutes + ":" + secString;
 
         return timeString;
     }
@@ -94,7 +94,7 @@ export const LoadingIcon = ({time, state_turn, myColor, set_time_expired}: any) 
         }
         return () => clearInterval(interval);
 
-    }, [isActive, seconds]);
+    }, [isActive, seconds, setCircleDasharray, set_time_expired]);
 
     return (
         <div className="relative h-48 w-48">

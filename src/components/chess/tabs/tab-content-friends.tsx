@@ -1,4 +1,4 @@
-import { writeSync } from 'fs';
+// import { writeSync } from 'fs';
 import React from 'react';
 
 export const FriendContent = (props: any) => {

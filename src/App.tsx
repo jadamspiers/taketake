@@ -1,5 +1,5 @@
 import React from "react";
-import { PageLoader } from "./components/page-loader";
+// import { PageLoader } from "./components/page-loader";
 import { AuthenticationGuard } from "./components/authentication-guard";
 import { Route, Routes } from "react-router-dom";
 import { AdminPage } from "./pages/admin-page";

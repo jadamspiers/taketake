@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { init, useConnectWallet, useWallets, useSetChain, useNotifications } from '@web3-onboard/react'; 
+import { init, useConnectWallet, useWallets, useNotifications } from '@web3-onboard/react'; 
 import injectedModule from '@web3-onboard/injected-wallets';
 import blocknativeIcon from '../../icons/blocknative-icon';
 import blocknativeLogo from '../../icons/blocknative-logo';
@@ -8,8 +8,6 @@ import blocknativeLogo from '../../icons/blocknative-logo';
 const injected = injectedModule()
 
 const infuraKey = '41ef22565fa44e12b22948ce23c0f5ce'
-
-let provider: any
 
 // initialize Onboard
 const initWeb3Onboard: any = init({
@@ -96,14 +94,14 @@ const initWeb3Onboard: any = init({
 
 export const ConnectWalletButton: React.FC = () => {
     const [{ wallet, connecting }, connect, disconnect] = useConnectWallet()
-    const [{ chains, connectedChain, settingChain }, setChain] = useSetChain()
-    const [notifications, customNotification, updateNotify] = useNotifications()
+    // const [{ connectedChain }, setChain] = useSetChain()
+    const [notifications] = useNotifications()
     const connectedWallets = useWallets()
     
     const [web3Onboard, setWeb3Onboard] = useState(null)
     
-    const [toAddress, setToAddress] = useState('')
-    const [notifyPosition, setNotifyPosition] = useState('bottomRight')
+    // const [toAddress, setToAddress] = useState('')
+    // const [notifyPosition, setNotifyPosition] = useState('bottomRight')
 
     useEffect(() => {
       setWeb3Onboard(initWeb3Onboard)
@@ -120,54 +118,57 @@ export const ConnectWalletButton: React.FC = () => {
     }, [connectedWallets, wallet])
 
     useEffect(() => {
+        let provider: any = null;
         if (!wallet?.provider) {
             provider = null
+            console.log("no provider: " + provider);
         } else {
-            provider = new ethers.providers.Web3Provider(wallet.provider, 'any')
+            provider = new ethers.providers.Web3Provider(wallet.provider, 'any');
+            console.log("Changed provider: " + provider);
         }
     }, [wallet])
 
-    const readyToTransact = async () => {
-        if (!wallet) {
-            const walletSelected = await connect()
-            if (!walletSelected) return false
-        }
+    // const readyToTransact = async () => {
+    //     if (!wallet) {
+    //         const walletSelected = await connect()
+    //         if (!walletSelected) return false
+    //     }
 
-        if (connectedChain && connectedChain.id == '0x5') {
-            // prompt user to switch to Sepolia for test
-            await setChain({ chainId: '0x5' })
-        }
+    //     if (connectedChain && connectedChain.id === '0x5') {
+    //         // prompt user to switch to Sepolia for test
+    //         await setChain({ chainId: '0x5' })
+    //     }
 
-        return true
-    }
+    //     return true
+    // }
 
-    const sendTransaction = async () => {
-        if (!toAddress) {
-            alert('An Ethereum address to send Eth to is required.')
-            return
-        }
+    // const sendTransaction = async () => {
+    //     if (!toAddress) {
+    //         alert('An Ethereum address to send Eth to is required.')
+    //         return
+    //     }
 
-        const signer = provider.getUncheckedSigner()
+    //     const signer = provider.getUncheckedSigner()
 
-        await signer.sendTransaction({
-            to: toAddress,
-            value: 100000000000000
-        })
-    }
+    //     await signer.sendTransaction({
+    //         to: toAddress,
+    //         value: 100000000000000
+    //     })
+    // }
 
-    const sendHash = async () => {
-        if (!toAddress) {
-          alert('An Ethereum address to send Eth to is required.')
-          return
-        }
+    // const sendHash = async () => {
+    //     if (!toAddress) {
+    //       alert('An Ethereum address to send Eth to is required.')
+    //       return
+    //     }
       
-        const signer = provider.getUncheckedSigner()
+    //     const signer = provider.getUncheckedSigner()
       
-        await signer.sendTransaction({
-          to: toAddress,
-          value: 1000000000000000
-        })
-      }
+    //     await signer.sendTransaction({
+    //       to: toAddress,
+    //       value: 1000000000000000
+    //     })
+    //   }
 
 
     if (!web3Onboard) return <div>Loading...</div>

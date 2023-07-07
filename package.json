@@ -78,9 +78,12 @@
     "@types/chess.js": "^0.13.4",
     "@vitejs/plugin-react": "^4.0.1",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.44.0",
+    "eslint-config-react-app": "^7.0.1",
     "hardhat": "^2.12.7",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vite-plugin-eslint": "^1.8.1"
   }
 }

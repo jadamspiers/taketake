@@ -13,7 +13,7 @@ export const ChatBox = ({ws, room, name, sender, senderMsg} : any) => {
             setMessages(prevMessages => [...prevMessages, {sender: sender, message: senderMsg},])
             console.log("changing state");
         }  
-    }, [senderMsg])
+    }, [senderMsg, sender, message, name]);
 
     const loadMessage = (s: string, m: string, k: number) => {
         if (s === 'self') {

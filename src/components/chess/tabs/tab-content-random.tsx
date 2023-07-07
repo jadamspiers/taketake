@@ -1,8 +1,8 @@
 import axios from '../../../api/axios';
-import React, { useEffect, useState } from 'react';
-import { useToast, Wrap } from '@chakra-ui/react';
+import React, { useCallback, useEffect, useState } from 'react';
+// import { useToast } from '@chakra-ui/react';
 import { WagerInput } from '../wager-input';
-import { contractAddress, ownerAddress } from '../../../chain/config';
+import { contractAddress } from '../../../chain/config';
 import Game from './Game.json';
 import { ethers } from 'ethers';
 import { LoadingIcon } from '../Timer/LoadingIcon';
@@ -23,14 +23,14 @@ export const RandomContent = ({
     state_opponent_resigned
 }: any) => {
 
-    const THREE_DAYS_IN_MS = 10 * 1000;
-    const NOW_IN_MS = new Date().getTime();
+    // const THREE_DAYS_IN_MS = 10 * 1000;
+    // const NOW_IN_MS = new Date().getTime();
 
-    const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
+    // const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
     const JOIN_LOBBY_URL = '/joinlobby'
 
-    const toast = useToast()
+    // const toast = useToast()
 
     const [wager, setWager] = useState();
     const [myColor, setMyColor] = useState();
@@ -43,12 +43,25 @@ export const RandomContent = ({
         }
     }, [state_wallet]);
 
+    const sendTimeout = useCallback((room: any) => {
+        console.log("sending timeout message to room " + room.id);
+        console.log("I AM " + username);
+        ws.current?.send(JSON.stringify({ 
+            action: 'send-timeout', 
+            message: room.id,
+            target: {
+                id: room.id,
+                name: room.name
+            }
+        }));
+    }, [ws, username]);
+
     useEffect(() => {
         if (timeExpired === true) {
             console.log("TIME HAS EXPIRED");
             sendTimeout(state_room);
         }
-    }, [timeExpired]);
+    }, [timeExpired, sendTimeout, state_room]);
 
     useEffect(() => {
         if (state_opponent_time_expired === true) {
@@ -69,11 +82,19 @@ export const RandomContent = ({
         }
     }, [state_did_win])
 
+    const loadTimer = useCallback(() => {
+        if (state_turn !== undefined && myColor !== undefined) {
+            return <LoadingIcon time={15} state_turn={state_turn} myColor={myColor} set_time_expired={setTimeExpired}/>
+        } else {
+            return <LoadingIcon time={30}/>
+        }
+    }, [state_turn, myColor]);
+
     useEffect(() => {
         if (state_turn !== undefined && myColor !== undefined) {
             loadTimer();
         }
-    }, [state_turn, myColor])
+    }, [state_turn, myColor, loadTimer])
 
     function showDrawPrompt() {
         if (state_trigger_draw_prompt === true) {
@@ -82,14 +103,6 @@ export const RandomContent = ({
                     <DrawPrompt f_acceptDraw={acceptDraw} f_denyDraw={denyDraw} />
                 </div>
             )
-        }
-    }
-
-    function loadTimer() {
-        if (state_turn !== undefined && myColor !== undefined) {
-            return <LoadingIcon time={15} state_turn={state_turn} myColor={myColor} set_time_expired={setTimeExpired}/>
-        } else {
-            return <LoadingIcon time={30}/>
         }
     }
 
@@ -107,19 +120,6 @@ export const RandomContent = ({
         const contract = new ethers.Contract(contractAddress, Game.abi, signer);
         const data = await contract.settleBet(180);
         console.log("settleBet(): " + JSON.stringify(data));
-    }
-
-    function sendTimeout(room: any) {
-        console.log("sending timeout message to room " + room.id);
-        console.log("I AM " + username);
-        ws.current?.send(JSON.stringify({ 
-            action: 'send-timeout', 
-            message: room.id,
-            target: {
-                id: room.id,
-                name: room.name
-            }
-        }));
     }
 
     function sendDraw(room: any) {

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Tabs } from '../components/chess/tabs/tabs';
-import { Panel } from '../components/chess/panel';
+// import { Panel } from '../components/chess/panel';
 import {StyledBoard} from '../components/chess/styled-board';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ConnectWallet } from '../components/chess/ConnectWallet/ConnectWallet';
@@ -12,7 +12,7 @@ export const PlayPage: React.FC = () => {
 
     const { user } = useAuth0();
     const [users, setUsers] = useState<any[]>([]);
-    const [message, setMessage] = useState('');
+    // const [message, setMessage] = useState('');
     const [roomSender, setRoomSender] = useState('');
     const [room, setRoom] = useState<any>();
     const [roomName, setRoomName] = useState('');
@@ -35,42 +35,11 @@ export const PlayPage: React.FC = () => {
     const [opponentResigned, setOpponentResigned] = useState(false);
     const [selfResigned, setSelfResigned] = useState(false);
     const ws = useRef<WebSocket | null>(null);
-    let didConnect = false;
-
-    useEffect(() => {
-        if (!didConnect) {
-            didConnect = true;
-            connect();
-            console.log("calling connect()")
-        }
-    }, []);
-
-    useEffect(() => {
-        if (users.length !== 0) {
-            console.log("Users: " + JSON.stringify(users))
-        }
-    }, [users]);
-
-    useEffect(() => {
-        if (didWin === false) {
-            console.log("YOU FUCKING LOST")
-            // get opponent's address
-            getOpponentAddress()
-            // then trigger the transaction once the address is recieved
-        } else if (didWin === true) {
-            console.log("YOU FUCKING WON!")
-        }
-    }, [didWin]);
-
-    useEffect(() => {
-        if (opponentAddress !== undefined) {
-            setTriggerTransaction(true);
-        }
-    }, [opponentAddress])
-
+    // let didConnect = false;
+    const [didConnect, setDidConnect] = useState(false);
 
     // if this player loses, then get the opponent's address and send them your wager
-    const getOpponentAddress = () => {
+    const getOpponentAddress = useCallback(() => {
 
         // be cautious: double check if this player lost
         if (didWin === false) {
@@ -97,26 +66,75 @@ export const PlayPage: React.FC = () => {
             console.log("WARNING: THIS USER DID NOT LOSE");
             return;
         }
-    }
+    }, [didWin, username]);
+    
+        const handleMoveMessage = useCallback((msg: any) => {
+            // if the sender is myself, then don't change the board
+            // if the sender is the opponent, then change the board
+            console.log("msg.sender.name: " + msg.sender.name);
+            console.log("user?.name: " + user?.name);
+            if (msg.sender.name !== user?.name) {
+                // convert the move string to JSON
+                setLastMove(JSON.parse(msg.message));
+            }
+        }, [user?.name]);
+    
+        const handleUserJoined = useCallback((msg: any) => {
+            setUsers(users => [...users, msg.sender]);
+        }, []);
+    
+        const handleChatMessage = useCallback((msg: any) => {
+            if (typeof room !== 'undefined') {
+              room.messages.push(msg);
+              console.log("room.messages: " + room.messages)
+            }
+        
+            if (msg.sender.name === user?.name) {
+                setRoomSender('self');
+            } else {
+                setRoomSender('other')
+            }
+            setSenderMessage(msg.message);
+        }, [room, user?.name]);
+    
+        const handleRoomJoined = useCallback((msg: any) => {
+            const newRoom = msg.target;
+            newRoom.name = newRoom.private ? msg.sender.name : newRoom.name;
+            newRoom["messages"] = [];
+            setRoom(newRoom);
+            setRoomName(newRoom.name);
+            setRoomId(newRoom.id);
+        }, []);
+    
+        const handleTimeoutMessage = useCallback((msg: any) => {
+            if (msg.sender.name !== user?.name) {
+                setOpponentTimeExpired(true);
+            } else if (msg.sender.name === user?.name) {
+                setMyTimeExpired(true);
+            }
+        }, [user?.name]);
+    
+        const handleDrawAction = useCallback((msg: any) => {
+            if (msg.sender.name !== user?.name) {
+                setTriggerDrawPrompt(true);
+            }
+        }, [user?.name]);
+    
+        const handleDrawAcceptedAction = useCallback((msg: any) => {
+            if (msg.sender.name !== user?.name) {
+                setIsMutualDraw(true);
+            }
+        }, [user?.name]);
+    
+        const handleResignAction = useCallback((msg: any) => {
+            if (msg.sender.name !== user?.name) {
+                setOpponentResigned(true);
+            } else if (msg.sender.name === user?.name) {
+                setSelfResigned(true);
+            }
+        }, [user?.name]);
 
-    const connect = () => {
-        ws.current = new WebSocket('ws://localhost:8080/ws' + "?name=" + user?.name);
-        console.log("WEBSOCKET: " + JSON.stringify(ws))
-      
-        ws.current?.addEventListener('open', (event) => {
-          console.log("connected to websocket as " + user?.name)
-        });
-
-        if (user?.name) {
-            setUsername(user?.name);
-        }
-
-        ws.current?.addEventListener('message', (event) => {
-            handleNewMessage(event);
-        });
-    }
-
-    const handleNewMessage = (event: MessageEvent) => {
+    const handleNewMessage = useCallback((event: MessageEvent) => {
         let data = event.data;
         data = data.split(/\r?\n/);
         for (let i = 0; i < data.length; i++) {
@@ -162,73 +180,55 @@ export const PlayPage: React.FC = () => {
               break;
           }
         }
-    }
+    }, [handleChatMessage, handleDrawAcceptedAction, handleDrawAction, handleMoveMessage, handleResignAction, handleRoomJoined, handleTimeoutMessage, handleUserJoined]);
 
-    const handleMoveMessage = (msg: any) => {
-        // if the sender is myself, then don't change the board
-        // if the sender is the opponent, then change the board
-        console.log("msg.sender.name: " + msg.sender.name);
-        console.log("user?.name: " + user?.name);
-        if (msg.sender.name !== user?.name) {
-            // convert the move string to JSON
-            setLastMove(JSON.parse(msg.message));
+    const connect = useCallback(() => {
+        ws.current = new WebSocket(`ws://localhost:8080/ws?name=${user?.name}`);
+        console.log("WEBSOCKET: " + JSON.stringify(ws))
+      
+        ws.current?.addEventListener('open', (event) => {
+          console.log("connected to websocket as " + user?.name)
+        });
+
+        if (user?.name) {
+            setUsername(user?.name);
         }
-    }
 
-    const handleUserJoined = (msg: any) => {
-        setUsers(users => [...users, msg.sender]);
-    }
+        ws.current?.addEventListener('message', (event) => {
+            handleNewMessage(event);
+        });
+    }, [handleNewMessage, user?.name]);
 
-    const handleChatMessage = (msg: any) => {
-        if (typeof room !== 'undefined') {
-          room.messages.push(msg);
-          console.log("room.messages: " + room.messages)
+    useEffect(() => {
+        if (!didConnect) {
+            setDidConnect(true);
+            connect();
+            console.log("calling connect()")
         }
-    
-        if (msg.sender.name === user?.name) {
-            setRoomSender('self');
-        } else {
-            setRoomSender('other')
-        }
-        setSenderMessage(msg.message);
-    }
+    }, [didConnect, connect]);
 
-    const handleRoomJoined = (msg: any) => {
-        const newRoom = msg.target;
-        newRoom.name = newRoom.private ? msg.sender.name : newRoom.name;
-        newRoom["messages"] = [];
-        setRoom(newRoom);
-        setRoomName(newRoom.name);
-        setRoomId(newRoom.id);
-    }
-
-    const handleTimeoutMessage = (msg: any) => {
-        if (msg.sender.name !== user?.name) {
-            setOpponentTimeExpired(true);
-        } else if (msg.sender.name === user?.name) {
-            setMyTimeExpired(true);
+    useEffect(() => {
+        if (users.length !== 0) {
+            console.log("Users: " + JSON.stringify(users))
         }
-    }
+    }, [users]);
 
-    const handleDrawAction = (msg: any) => {
-        if (msg.sender.name !== user?.name) {
-            setTriggerDrawPrompt(true);
+    useEffect(() => {
+        if (didWin === false) {
+            console.log("YOU FUCKING LOST")
+            // get opponent's address
+            getOpponentAddress()
+            // then trigger the transaction once the address is recieved
+        } else if (didWin === true) {
+            console.log("YOU FUCKING WON!")
         }
-    }
+    }, [didWin, getOpponentAddress]);
 
-    const handleDrawAcceptedAction = (msg: any) => {
-        if (msg.sender.name !== user?.name) {
-            setIsMutualDraw(true);
+    useEffect(() => {
+        if (opponentAddress !== undefined) {
+            setTriggerTransaction(true);
         }
-    }
-
-    const handleResignAction = (msg: any) => {
-        if (msg.sender.name !== user?.name) {
-            setOpponentResigned(true);
-        } else if (msg.sender.name === user?.name) {
-            setSelfResigned(true);
-        }
-    }
+    }, [opponentAddress])
     
 
     return (

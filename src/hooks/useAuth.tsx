@@ -1,6 +1,6 @@
 import { Amplify, Auth } from "aws-amplify";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { AwsConfigAuth } from "../config/auth";
+// import { AwsConfigAuth } from "../config/auth";
 
 Amplify.configure({
     Auth: {
@@ -122,7 +122,7 @@ const useProvideAuth = (): UseAuth => {
             const result = await Auth.confirmSignUp(username, code);
             setUsername(username);
             setIsAuthenticated(true);
-            return { success: true, message: "" }
+            return { success: true, message: result }
         } catch (error) {
             console.log("error confirming sign up: ", error);
             return {
